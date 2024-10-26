@@ -25,8 +25,8 @@ En cada puerto hay una serie de muelles a los que llegan barcos llenos de conten
 La clase Muelle está caracterizada por un identificador que es un número de dos dígitos (9 < x < 100), un punto GPS que lo localiza, un estado (operativo o fuera de servicio).
 Cada muelle tiene un número variable de plazas (positivo) y una cantidad máxima de contenedores que se pueden apilar (x > 0) que se fija en el momento de crearlo.
 
-- [ ] Conocer el número de plazas que tiene el muelle.
-- [ ] Conocer el número de plazas vacías, semi-llenas y completas.
+- [x] Conocer el número de plazas que tiene el muelle.
+- [x] Conocer el número de plazas vacías, semi-llenas y completas.
 - [ ] Dado un código de contenedor, indicar la plaza en la que está.
 - [ ] Dado un código de contenedor, indicar en qué nivel de una plaza está apilado.
 - [ ] Asignar un contenedor a una plaza y apilarlo encima de otro si es posible.
