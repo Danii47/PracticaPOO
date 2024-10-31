@@ -12,10 +12,10 @@ public class Contenedor {
 	private double cargaUtilMaximaKg;
 	private double volumenMetrosCubicos;
 	private String estado;
-	private boolean tieneTecho;
+	private boolean techo;
 
 	public Contenedor(String codigoIdentificador, double pesoKg, double cargaUtilMaximaKg, double volumenMetrosCubicos,
-			String estado, boolean tieneTecho) {
+			String estado, boolean techo) {
 		if (!comprobarCodigoIdentificador(codigoIdentificador))
 			throw new IllegalArgumentException("El código de identificación no es válido.");
 
@@ -36,7 +36,16 @@ public class Contenedor {
 		this.cargaUtilMaximaKg = cargaUtilMaximaKg;
 		this.volumenMetrosCubicos = volumenMetrosCubicos;
 		this.estado = estado;
-		this.tieneTecho = tieneTecho;
+		this.techo = techo;
+	}
+	
+	public Contenedor(Contenedor contenedor) {
+		this.codigoIdentificador = contenedor.getCodigoIdentificador();
+		this.pesoKg = contenedor.getPesoKg();
+		this.cargaUtilMaximaKg = contenedor.getCargaUtilMaximaKg();
+		this.volumenMetrosCubicos = contenedor.getVolumenMetrosCubicos();
+		this.estado = contenedor.getEstado();
+		this.techo = contenedor.getTecho();
 	}
 
 	// TODO: Deberiamos crear todos los getters y setters?
@@ -48,12 +57,12 @@ public class Contenedor {
 		estado = "transito";
 	}
 
-	public void setTecho(boolean tieneTecho) {
-		this.tieneTecho = tieneTecho;
+	public void setTecho(boolean techo) {
+		this.techo = techo;
 	}
 	
 	public boolean getTecho() {
-		return tieneTecho;
+		return techo;
 	}
 
 	public String getCodigoIdentificador() {
@@ -68,8 +77,16 @@ public class Contenedor {
 		return getVolumenMetrosCubicos() * conversionPies;
 	}
 
+	public double getCargaUtilMaximaKg() {
+		return cargaUtilMaximaKg;
+	}
+	
 	public double getPesoKg() {
 		return pesoKg;
+	}
+	
+	public String getEstado() {
+		return estado;
 	}
 
 	public double getPesoLibras() {
