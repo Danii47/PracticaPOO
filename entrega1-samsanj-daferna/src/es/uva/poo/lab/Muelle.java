@@ -58,6 +58,7 @@ public class Muelle {
 				int j = 0;
 				boolean flag = false;
 				while (j < getMaximoApilables() - 1 && !flag) {
+					
 					if (plazas[i][j] == null) flag = true;
 					else if (!plazas[i][j].getTecho()) {
 						plazasLlenas++;
@@ -85,5 +86,49 @@ public class Muelle {
 		}
 		
 		return -1;
+	}
+	
+	// TODO: Docs de que devuelve al no encontrarlo (-1)
+	public int getNivelPlazaContenedor(String codigoIdentificador) {
+		for (int i = 0; i < getNumeroPlazas(); i++) {
+			for (int j = 0; j < getMaximoApilables(); j++) {
+				if (plazas[i][j].getCodigoIdentificador() == codigoIdentificador)
+					return j;
+			}
+		}
+		
+		return -1;
+	}
+	
+	// TODO: private quiza?
+	public boolean posibleApilar(int plaza) {
+		if (plazas[plaza][getMaximoApilables() - 1] != null) return false;
+		
+		for (int i = getMaximoApilables() - 1; i >= 0; i--) {
+			if (plazas[plaza][i] != null && !plazas[plaza][i].getTecho()) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public void asignarConenedor(Contenedor contenedor, int plaza) {
+		if (plaza < 0 || plaza > getNumeroPlazas() - 1)
+			throw new IllegalArgumentException("Plaza no válida.");
+		
+		if (!posibleApilar(plaza)) 
+			throw new IllegalArgumentException("No es posible asignar el contenedor a la plaza.");
+		
+		int i = 0;
+		boolean colocado = false;
+		while (i < getMaximoApilables() && !colocado) {
+			if (plazas[plaza][i] == null) {
+				 // Creo una copia del contenedor para evitar problemas con referencias
+				plazas[plaza][i] = new Contenedor(contenedor);
+				colocado = true;
+			}
+			i++;
+		}
 	}
 }
