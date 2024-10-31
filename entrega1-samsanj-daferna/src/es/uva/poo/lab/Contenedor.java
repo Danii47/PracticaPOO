@@ -48,10 +48,18 @@ public class Contenedor {
 		estado = "transito";
 	}
 
-	public void setTecho(boolean techo) {
-		tieneTecho = techo;
+	public void setTecho(boolean tieneTecho) {
+		this.tieneTecho = tieneTecho;
+	}
+	
+	public boolean getTecho() {
+		return tieneTecho;
 	}
 
+	public String getCodigoIdentificador() {
+		return codigoIdentificador;
+	}
+	
 	public double getVolumenMetrosCubicos() {
 		return volumenMetrosCubicos;
 	}
@@ -116,7 +124,7 @@ public class Contenedor {
 
 	}
 
-	public static void main(String[] args) {
-		Contenedor container = new Contenedor("BICU1234565", 0, 0, 0, "a", true);
-	}
+	//public static void main(String[] args) {
+		//Contenedor container = new Contenedor("BICU1234565", 0, 0, 0, "a", true);
+	//}
 }
