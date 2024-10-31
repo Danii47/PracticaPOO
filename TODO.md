@@ -5,7 +5,6 @@
 - [ ] **Clase muelle**
 - [ ] **Clase contenedor**
 - [ ] **Clase trayecto**
-- [ ] **Clase plaza??**
 - [ ] **Hacer el javadoc**
 
 
@@ -27,9 +26,9 @@ Cada muelle tiene un número variable de plazas (positivo) y una cantidad máxim
 
 - [x] Conocer el número de plazas que tiene el muelle.
 - [x] Conocer el número de plazas vacías, semi-llenas y completas.
-- [ ] Dado un código de contenedor, indicar la plaza en la que está.
-- [ ] Dado un código de contenedor, indicar en qué nivel de una plaza está apilado.
-- [ ] Asignar un contenedor a una plaza y apilarlo encima de otro si es posible.
+- [x] Dado un código de contenedor, indicar la plaza en la que está.
+- [x] Dado un código de contenedor, indicar en qué nivel de una plaza está apilado.
+- [x] Asignar un contenedor a una plaza y apilarlo encima de otro si es posible.
 - [ ] Sacar un contenedor de una plaza y desapilarlo.
 
 ## Clase contenedor
