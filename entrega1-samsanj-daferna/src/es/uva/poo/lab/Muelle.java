@@ -113,8 +113,12 @@ public class Muelle {
 		return true;
 	}
 	
-	public void asignarConenedor(Contenedor contenedor, int plaza) {
-		if (plaza < 0 || plaza > getNumeroPlazas() - 1)
+	private boolean plazaValida(int plaza) {
+		return plaza < 0 || plaza > getNumeroPlazas() - 1;
+	}
+	
+	public void asignarContenedor(Contenedor contenedor, int plaza) {
+		if (!plazaValida(plaza))
 			throw new IllegalArgumentException("Plaza no válida.");
 		
 		if (!posibleApilar(plaza)) 
@@ -130,5 +134,26 @@ public class Muelle {
 			}
 			i++;
 		}
+	}
+	
+	public Contenedor desapilarContenedor(int plaza) {
+		if (!plazaValida(plaza))
+			throw new IllegalArgumentException("Plaza no válida.");
+			
+		if (plazas[plaza][0] == null)
+			throw new IllegalArgumentException("No es posible desapilar el contenedor ya que no hay contenedores en esa plaza.");
+		
+		int i = getMaximoApilables() - 1;
+		boolean contenedorEncontrado = false;
+		
+		while (i >= 0 && !contenedorEncontrado) {
+			if (plazas[plaza][i] == null) i--;
+			else contenedorEncontrado = true;
+		}
+
+		Contenedor contenedorDesapilado = plazas[plaza][i];
+		plazas[plaza][i] = null;
+		
+		return contenedorDesapilado;
 	}
 }
