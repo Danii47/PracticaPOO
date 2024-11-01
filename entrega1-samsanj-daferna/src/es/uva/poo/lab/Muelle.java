@@ -101,15 +101,24 @@ public class Muelle {
 	}
 	
 	// TODO: private quiza?
-	public boolean posibleApilar(int plaza) {
+	public boolean posibleApilar(Contenedor contenedor, int plaza) {
 		if (plazas[plaza][getMaximoApilables() - 1] != null) return false;
 		
 		for (int i = getMaximoApilables() - 1; i >= 0; i--) {
-			if (plazas[plaza][i] != null && !plazas[plaza][i].getTecho()) {
-				return false;
+			if (plazas[plaza][i] != null) {
+				if (!plazas[plaza][i].getTecho() || !dimensionesIguales(plazas[plaza][i], contenedor)) {
+					return false;					
+				} else {
+					return true;
+				}
 			}
 		}
 		
+		return true;
+	}
+	
+	private boolean dimensionesIguales(Contenedor contenedorBase, Contenedor contenedorApilado) {
+		// TODO: QUE DIMENSIONES HAY QUE COMPROBAR??? Peso y volumen?
 		return true;
 	}
 	
@@ -121,7 +130,7 @@ public class Muelle {
 		if (!plazaValida(plaza))
 			throw new IllegalArgumentException("Plaza no válida.");
 		
-		if (!posibleApilar(plaza)) 
+		if (!posibleApilar(contenedor, plaza)) 
 			throw new IllegalArgumentException("No es posible asignar el contenedor a la plaza.");
 		
 		int i = 0;
