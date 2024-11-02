@@ -22,18 +22,47 @@ public class Muelle {
 			throw new IllegalArgumentException("El número de contenedores máximos apilados debe ser mayor que 0.");
 		
 		this.codigoIdentificacion = codigoIdentificacion;
-		this.localizacion = localizacion;
+		this.localizacion = new GPSCoordinate(localizacion.getLatitudeGMS(), localizacion.getLongitudeGMS());
 		this.operativo = operativo;
 		this.plazas = new Contenedor[numeroPlazas][maximoContenedoresApilables];
 		this.numeroPlazas = numeroPlazas;
 		this.maximoContenedoresApilables = maximoContenedoresApilables;
 	}
 	
+	public Muelle(Muelle muelle) {
+		this.codigoIdentificacion = muelle.codigoIdentificacion;
+		this.localizacion = muelle.getLocalizacion();
+		this.operativo = muelle.operativo;
+		this.plazas = new Contenedor[numeroPlazas][maximoContenedoresApilables];
+		this.numeroPlazas = muelle.numeroPlazas;
+		this.maximoContenedoresApilables = muelle.maximoContenedoresApilables;
+		
+		for (int i = 0; i < muelle.getNumeroPlazas(); i++) {
+			for (int j = 0; j < muelle.getMaximoApilables(); j++)
+				this.plazas[i][j] = new Contenedor(muelle.plazas[i][j]);
+		}
+	}
+	
+	public int getCodigoIdentificacion() {
+		return codigoIdentificacion;
+	}
+	
+	public GPSCoordinate getLocalizacion() {
+		return new GPSCoordinate(localizacion.getLatitudeGMS(), localizacion.getLongitudeGMS());
+	}
+	
+	public void setOperativo(boolean operativo) {
+		this.operativo = operativo;
+	}
+	
+	public boolean getOperativo() {
+		return operativo;
+	}
+	
 	public int getNumeroPlazas() {
 		return numeroPlazas;
 	}
 	
-	// MÉTODO EXTRA
 	public int getMaximoApilables() {
 		return maximoContenedoresApilables;
 	}
