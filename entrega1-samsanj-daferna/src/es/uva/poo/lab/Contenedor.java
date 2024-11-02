@@ -100,7 +100,6 @@ public class Contenedor {
 	// TODO: Añadir método que calcule el precio del transporte total de un
 	// contenedor a partir de sus trayectos
 
-	// TODO: Está bien tirar un error dentro del método?
 	private static void comprobarCodigoIdentificador(String codigoIdentificador) {
 		if (codigoIdentificador.length() != 11)
 			throw new IllegalArgumentException("La logitud del código no es adecuada.");
