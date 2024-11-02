@@ -4,6 +4,10 @@ import static java.lang.Math.pow;
 
 public class Contenedor {
 
+	public static enum ESTADOS {
+        TRANSITO, RECOGIDA;
+    }
+	
 	private final double conversionPies = 35.3147;
 	private final double conversionLibras = 2.20462;
 
@@ -11,13 +15,12 @@ public class Contenedor {
 	private double pesoKg;
 	private double cargaUtilMaximaKg;
 	private double volumenMetrosCubicos;
-	private String estado;
+	private ESTADOS estado;
 	private boolean techo;
 
 	public Contenedor(String codigoIdentificador, double pesoKg, double cargaUtilMaximaKg, double volumenMetrosCubicos,
-			String estado, boolean techo) {
-		if (!comprobarCodigoIdentificador(codigoIdentificador))
-			throw new IllegalArgumentException("El código de identificación no es válido.");
+			ESTADOS estado, boolean techo) {
+		comprobarCodigoIdentificador(codigoIdentificador);
 
 		if (pesoKg <= 0)
 			throw new IllegalArgumentException("El peso debe ser positivo.");
@@ -27,9 +30,6 @@ public class Contenedor {
 
 		if (volumenMetrosCubicos <= 0)
 			throw new IllegalArgumentException("El volumen debe ser positivo.");
-
-		if (!estado.equals("transito") && !estado.equals("recogida"))
-			throw new IllegalArgumentException("El estado solo puede ser 'transito' o 'recogida'.");
 
 		this.codigoIdentificador = codigoIdentificador;
 		this.pesoKg = pesoKg;
@@ -50,13 +50,17 @@ public class Contenedor {
 
 	// TODO: Deberiamos crear todos los getters y setters?
 	public void setEnRecogida() {
-		estado = "recogida";
+		estado = ESTADOS.RECOGIDA;
 	}
 
 	public void setEnTransito() {
-		estado = "transito";
+		estado = ESTADOS.TRANSITO;
 	}
 
+	public void setEstado(ESTADOS estado) {
+		this.estado = estado;
+	}
+	
 	public void setTecho(boolean techo) {
 		this.techo = techo;
 	}
@@ -85,7 +89,7 @@ public class Contenedor {
 		return pesoKg;
 	}
 	
-	public String getEstado() {
+	public ESTADOS getEstado() {
 		return estado;
 	}
 
@@ -97,15 +101,15 @@ public class Contenedor {
 	// contenedor a partir de sus trayectos
 
 	// TODO: Está bien tirar un error dentro del método?
-	private static boolean comprobarCodigoIdentificador(String codigoIdentificador) {
+	private static void comprobarCodigoIdentificador(String codigoIdentificador) {
 		if (codigoIdentificador.length() != 11)
-			return false;
+			throw new IllegalArgumentException("La logitud del código no es adecuada.");
 
 		int digitoControl = 0;
 
 		for (int i = 0; i < 3; i++) {
 			if (codigoIdentificador.charAt(i) < 'A' || codigoIdentificador.charAt(i) > 'Z') {
-				return false;
+				throw new IllegalArgumentException("Los tres primeros caracteres no son letras mayusculas.");
 			} else {
 				// Suma correspondiente al cálculo del dígito de control
 				digitoControl += pow(2, i)
@@ -115,7 +119,7 @@ public class Contenedor {
 
 		if (codigoIdentificador.charAt(3) != 'U' && codigoIdentificador.charAt(3) != 'J'
 				&& codigoIdentificador.charAt(3) != 'Z') {
-			return false;
+			throw new IllegalArgumentException("El cuarto caracter debe ser una 'U', 'J' o una 'Z'.");
 		} else {
 			// Suma correspondiente al cálculo del dígito de control
 			digitoControl += pow(2, 3)
@@ -124,7 +128,7 @@ public class Contenedor {
 
 		for (int i = 4; i < 10; i++) {
 			if (codigoIdentificador.charAt(i) < '0' || codigoIdentificador.charAt(i) > '9') {
-				return false;
+				throw new IllegalArgumentException("Del caracter 5 al 10 deben ser números");
 			} else {
 				// Suma correspondiente al cálculo del dígito de control
 				digitoControl += pow(2, i) * (codigoIdentificador.charAt(i) - '0');
@@ -134,14 +138,7 @@ public class Contenedor {
 		digitoControl = (digitoControl % 11 == 10) ? 0 : digitoControl % 11;
 
 		if (digitoControl != codigoIdentificador.charAt(10) - '0') {
-			return false;
+			throw new IllegalArgumentException("El dígito de control no es válido.");
 		}
-
-		return true;
-
 	}
-
-	//public static void main(String[] args) {
-		//Contenedor container = new Contenedor("BICU1234565", 0, 0, 0, "a", true);
-	//}
 }
