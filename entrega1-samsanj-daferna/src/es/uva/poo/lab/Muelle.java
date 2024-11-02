@@ -5,6 +5,7 @@ import es.uva.inf.poo.maps.GPSCoordinate;
 public class Muelle {
 	
 	private int codigoIdentificacion;
+	// TODO: NO HACE FALTA CREAR UN OBJETO NUEVO AL ASIGNARLO YA QUE ES INMUTABLE?
 	private GPSCoordinate localizacion;
 	private boolean operativo;
 	private Contenedor[][] plazas;
