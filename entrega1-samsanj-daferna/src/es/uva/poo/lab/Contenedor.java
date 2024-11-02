@@ -8,8 +8,8 @@ public class Contenedor {
         TRANSITO, RECOGIDA;
     }
 	
-	private final double conversionPies = 35.3147;
-	private final double conversionLibras = 2.20462;
+	private static final double CONVERSION_PIES = 35.3147;
+	private static final double CONVERSION_LIBRAS = 2.20462;
 
 	private String codigoIdentificador;
 	private double pesoKg;
@@ -81,7 +81,7 @@ public class Contenedor {
 	}
 
 	public double getVolumenPiesCubicos() {
-		return getVolumenMetrosCubicos() * conversionPies;
+		return getVolumenMetrosCubicos() * CONVERSION_PIES;
 	}
 
 	public double getCargaUtilMaximaKg() {
@@ -97,11 +97,8 @@ public class Contenedor {
 	}
 
 	public double getPesoLibras() {
-		return getPesoKg() * conversionLibras;
+		return getPesoKg() * CONVERSION_LIBRAS;
 	}
-
-	// TODO: Añadir método que calcule el precio del transporte total de un
-	// contenedor a partir de sus trayectos
 
 	private static void comprobarCodigoIdentificador(String codigoIdentificador) {
 		if (codigoIdentificador == null)
@@ -145,5 +142,18 @@ public class Contenedor {
 		if (digitoControl != codigoIdentificador.charAt(10) - '0') {
 			throw new IllegalArgumentException("El dígito de control no es válido.");
 		}
+	}
+	
+	// TODO: Añadir método que calcule el precio del transporte total de un
+	// contenedor a partir de sus trayectos
+	// TODO: Ni idea de si es lo que pide
+	public double getPrecioAPartirDeTrayectos(Trayecto[] trayectos, double costePorDia, double costePorMillaNautica) {
+		double precio = 0;
+		
+		for (Trayecto trayecto: trayectos) {
+			precio += trayecto.getCosteTrayecto(costePorDia, costePorMillaNautica);
+		}
+		
+		return precio;
 	}
 }
