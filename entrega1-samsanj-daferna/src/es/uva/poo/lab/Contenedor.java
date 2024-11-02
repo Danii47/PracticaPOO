@@ -40,6 +40,9 @@ public class Contenedor {
 	}
 	
 	public Contenedor(Contenedor contenedor) {
+		if (contenedor == null)
+			throw new IllegalArgumentException("El contenedor a copiar no puede ser null");
+		
 		this.codigoIdentificador = contenedor.getCodigoIdentificador();
 		this.pesoKg = contenedor.getPesoKg();
 		this.cargaUtilMaximaKg = contenedor.getCargaUtilMaximaKg();
@@ -101,6 +104,9 @@ public class Contenedor {
 	// contenedor a partir de sus trayectos
 
 	private static void comprobarCodigoIdentificador(String codigoIdentificador) {
+		if (codigoIdentificador == null)
+			throw new IllegalArgumentException("El código no puede ser null.");
+		
 		if (codigoIdentificador.length() != 11)
 			throw new IllegalArgumentException("La logitud del código no es adecuada.");
 

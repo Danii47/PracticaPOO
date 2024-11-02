@@ -15,6 +15,9 @@ public class Muelle {
 		if (codigoIdentificacion < 10 || codigoIdentificacion > 99)
 			throw new IllegalArgumentException("El código de identificación debe ser un número de dos digitos.");
 		
+		if (localizacion == null)
+			throw new IllegalArgumentException("La localización no puede ser null.");
+		
 		if (numeroPlazas <= 0)
 			throw new IllegalArgumentException("Las plazas deben ser positivas.");
 		
@@ -30,6 +33,9 @@ public class Muelle {
 	}
 	
 	public Muelle(Muelle muelle) {
+		if (muelle == null)
+			throw new IllegalArgumentException("El muelle a copiar no puede ser null.");
+		
 		this.codigoIdentificacion = muelle.codigoIdentificacion;
 		this.localizacion = muelle.getLocalizacion();
 		this.operativo = muelle.operativo;
@@ -105,20 +111,26 @@ public class Muelle {
 		return getNumeroPlazas() - (getPlazasVacias() + getPlazasLlenas());
 	}
 	
-	// TODO: Hacer la documentacion de que devuelve -1 al no encontrarlo
+	// TODO: Hacer la documentacion de que devuelve error al no encontrarlo
 	public int getPlazaContenedor(String codigoIdentificador) {
+		if (codigoIdentificador == null)
+			throw new IllegalArgumentException("El código de identificación no puede ser null.");
+		
 		for (int i = 0; i < getNumeroPlazas(); i++) {
 			for (int j = 0; j < getMaximoApilables(); j++) {
-				if (plazas[i][j].getCodigoIdentificador() == codigoIdentificador)
+				if (plazas[i][j].getCodigoIdentificador().equals(codigoIdentificador))
 					return i;
 			}
 		}
 		
-		return -1;
+		throw new IllegalArgumentException("No se encontró el contenedor con ese código de identificación.");
 	}
 	
 	// TODO: Docs de que devuelve al no encontrarlo (-1)
 	public int getNivelPlazaContenedor(String codigoIdentificador) {
+		if (codigoIdentificador == null)
+			throw new IllegalArgumentException("El código de identificación no puede ser null.");
+		
 		for (int i = 0; i < getNumeroPlazas(); i++) {
 			for (int j = 0; j < getMaximoApilables(); j++) {
 				if (plazas[i][j].getCodigoIdentificador() == codigoIdentificador)
@@ -126,11 +138,14 @@ public class Muelle {
 			}
 		}
 		
-		return -1;
+		throw new IllegalArgumentException("No se encontró el contenedor con ese código de identificación.");
 	}
 	
 	// TODO: private quiza?
 	public boolean posibleApilar(Contenedor contenedor, int plaza) {
+		if (contenedor == null)
+			throw new IllegalArgumentException("El contenedor a consultar no puede ser null.");
+		
 		if (plazas[plaza][getMaximoApilables() - 1] != null) return false;
 		
 		for (int i = getMaximoApilables() - 1; i >= 0; i--) {
