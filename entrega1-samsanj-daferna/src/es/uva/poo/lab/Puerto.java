@@ -26,6 +26,15 @@ public class Puerto {
 		this.muelles = new ArrayList<Muelle>();
 	}
 	
+	public Puerto(Puerto puerto) {
+		this.codigoIdentificacion = puerto.getCodigoIdentificacion();
+		this.muelles = new ArrayList<Muelle>();
+		
+		for (int i = 0; i < puerto.getNumeroMuelles(); i++) {
+			this.muelles.add(puerto.getMuellePorIndice(i));
+		}
+	}
+	
 	private void comprobarcodigoIdentificacion(String codigoIdentificacion) {
 		if (codigoIdentificacion == null)
 			throw new IllegalArgumentException("El codigo de identificación no puede ser null.");
@@ -53,6 +62,10 @@ public class Puerto {
 	
 	public int getNumeroMuelles() {
 		return muelles.size();
+	}
+	
+	public Muelle getMuellePorIndice(int indice) {
+		return new Muelle(muelles.get(indice));
 	}
 	
 	public boolean getOperativo() {
