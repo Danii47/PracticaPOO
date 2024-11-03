@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Trayecto {
 	// TODO: Usar Date o Timestamp?
 	// https://mkyong.com/java/how-to-get-current-timestamps-in-java/
-	private static final double CONVERSION_MILLAS_NAUTICAS = 0.539957;
+	public static final double CONVERSION_MILLAS_NAUTICAS = 0.539957;
 	
 	private Muelle muelleOrigen;
 	private Puerto puertoOrigen;
@@ -14,7 +14,7 @@ public class Trayecto {
 	private Muelle muelleDestino;
 	private Puerto puertoDestino;
 	private LocalDate fechaFin;
-	
+
 	public Trayecto(Muelle muelleOrigen, Puerto puertoOrigen, LocalDate fechaInicio, Muelle muelleDestino, Puerto puertoDestino, LocalDate fechaFin) {
 		if (muelleOrigen == null)
 			throw new IllegalArgumentException("El muelle origen no puede ser null.");

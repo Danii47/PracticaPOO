@@ -37,16 +37,15 @@ public class Muelle {
 		if (muelle == null)
 			throw new IllegalArgumentException("El muelle a copiar no puede ser null.");
 		
-		this.codigoIdentificacion = muelle.codigoIdentificacion;
-		this.localizacion = muelle.getLocalizacion();
-		this.operativo = muelle.operativo;
-		this.plazas = new Contenedor[numeroPlazas][maximoContenedoresApilables];
-		this.numeroPlazas = muelle.numeroPlazas;
-		this.maximoContenedoresApilables = muelle.maximoContenedoresApilables;
+		codigoIdentificacion = muelle.codigoIdentificacion;
+		localizacion = muelle.getLocalizacion();
+		operativo = muelle.getOperativo();
+		numeroPlazas = muelle.getNumeroPlazas();
+		maximoContenedoresApilables = muelle.getMaximoApilables();
+		plazas = new Contenedor[numeroPlazas][maximoContenedoresApilables];
 		
 		for (int i = 0; i < muelle.getNumeroPlazas(); i++) {
-			for (int j = 0; j < muelle.getMaximoApilables(); j++)
-				this.plazas[i][j] = new Contenedor(muelle.plazas[i][j]);
+			plazas[i] = getContenedoresEnPlaza(i);
 		}
 	}
 	
@@ -82,6 +81,19 @@ public class Muelle {
 		}
 		
 		return plazasVacias;
+	}
+	
+	public Contenedor[] getContenedoresEnPlaza(int plaza) {
+		if (plaza < 0 || plaza > getNumeroPlazas())
+			throw new IllegalArgumentException("Número de plaza invalido.");
+		
+		Contenedor[] contenedores = new Contenedor[plazas[plaza].length];
+		
+		for (int i = 0; i < contenedores.length; i++) {
+			contenedores[i] = plazas[plaza][i] == null ? null : new Contenedor(plazas[plaza][i]);
+		}
+		
+		return contenedores;
 	}
 	
 	public int getPlazasLlenas() {

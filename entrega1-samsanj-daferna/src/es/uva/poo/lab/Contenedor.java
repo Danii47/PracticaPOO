@@ -8,8 +8,8 @@ public class Contenedor {
         TRANSITO, RECOGIDA;
     }
 	
-	private static final double CONVERSION_PIES = 35.3147;
-	private static final double CONVERSION_LIBRAS = 2.20462;
+	public static final double CONVERSION_PIES = 35.3147;
+	public static final double CONVERSION_LIBRAS = 2.20462;
 
 	private String codigoIdentificador;
 	private double pesoKg;
@@ -61,6 +61,9 @@ public class Contenedor {
 	}
 
 	public void setEstado(ESTADOS estado) {
+		if (estado == null)
+			throw new IllegalArgumentException("El estado introducido no puede ser null.");
+		
 		this.estado = estado;
 	}
 	

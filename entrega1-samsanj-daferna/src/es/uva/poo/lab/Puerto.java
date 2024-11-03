@@ -117,7 +117,7 @@ public class Puerto {
 	public Muelle[] getMuellesOperativos() {
 		ArrayList<Muelle> muellesOperativosList = new ArrayList<>();
 
-	    for (Muelle muelle : muelles) {
+	    for (Muelle muelle: muelles) {
 	        if (muelle.getOperativo()) {
 	            muellesOperativosList.add(new Muelle(muelle));
 	        }
@@ -129,7 +129,7 @@ public class Puerto {
 	public Muelle[] getMuellesConEspacio() {
 		ArrayList<Muelle> muellesConEspacio = new ArrayList<>();
 
-	    for (Muelle muelle : muelles) {
+	    for (Muelle muelle: muelles) {
 	        if (muelle.getPlazasLlenas() != muelle.getNumeroPlazas()) {
 	        	muellesConEspacio.add(new Muelle(muelle));
 	        }
@@ -145,7 +145,7 @@ public class Puerto {
 		
 		ArrayList<Muelle> muellesConEspacio = new ArrayList<>();
 
-	    for (Muelle muelle : muelles) {
+	    for (Muelle muelle: muelles) {
 	        if (muelle.getLocalizacion().getDistanceTo(localizacion) <= distancia){
 	        	muellesConEspacio.add(new Muelle(muelle));
 	        }
