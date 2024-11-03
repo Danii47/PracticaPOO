@@ -16,6 +16,8 @@ public class Trayecto {
 	private LocalDate fechaFin;
 
 	public Trayecto(Muelle muelleOrigen, Puerto puertoOrigen, LocalDate fechaInicio, Muelle muelleDestino, Puerto puertoDestino, LocalDate fechaFin) {
+		// TODO: Habría que comprobar que el muelleOrigen pertenece al puertoOrigen e igual con los destino
+		
 		if (muelleOrigen == null)
 			throw new IllegalArgumentException("El muelle origen no puede ser null.");
 		
@@ -79,6 +81,12 @@ public class Trayecto {
 	
 	// A partir del coste por día de trayecto dado y el coste por milla marina, obtener el precio de un trayecto en euros.
 	public double getCosteTrayecto(double costePorDia, double costePorMillaNautica) {
+		if (costePorDia <= 0) 
+			throw new IllegalArgumentException("El coste por día debe ser superior a 0.");
+		
+		if (costePorMillaNautica <= 0)
+			throw new IllegalArgumentException("El coste por milla naútica debe ser superior a 0.");
+		
 		int dias = getDuracionDias();
 		double distanciaMillasNauticas = getDistanciaMillasNauticas();
 		

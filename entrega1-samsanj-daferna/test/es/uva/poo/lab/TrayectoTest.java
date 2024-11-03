@@ -225,6 +225,66 @@ public class TrayectoTest {
 		 double costeEsperado = (t.getDuracionDias() * costePorDia) + (t.getDistanciaMillasNauticas() * costePorMillaNautica);
 		 assertEquals(costeEsperado, t.getCosteTrayecto(costePorDia, costePorMillaNautica), 0.001);
 	 }
+	 
+	 @Test
+	 public void testGetCosteTrayectoCon0Dias() {
+		 GPSCoordinate gpsi = new GPSCoordinate(41.623071, -4.749593);
+		 Muelle mo = new Muelle(50, gpsi, true, 10, 10);
+		 Puerto po = new Puerto("AA-AAA");
+		 LocalDate fi = LocalDate.now();
+
+		 GPSCoordinate gpsd = new GPSCoordinate(41.6372231, -4.738908);
+		 Muelle md = new Muelle(50, gpsd, true, 10, 10);
+		 Puerto pd = new Puerto("AA-AAA");
+		 LocalDate ff = LocalDate.now();
+
+		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+		 
+		 double costePorDia = 100;
+		 double costePorMillaNautica = 50;
+		 double costeEsperado = (t.getDuracionDias() * costePorDia) + (t.getDistanciaMillasNauticas() * costePorMillaNautica);
+		 assertEquals(costeEsperado, t.getCosteTrayecto(costePorDia, costePorMillaNautica), 0.001);
+	 }
+	 
+	 @Test(expected = IllegalArgumentException.class)
+	 public void testGetCosteTrayectoConCosetPorDiaNegativo() {
+		 GPSCoordinate gpsi = new GPSCoordinate(41.623071, -4.749593);
+		 Muelle mo = new Muelle(50, gpsi, true, 10, 10);
+		 Puerto po = new Puerto("AA-AAA");
+		 LocalDate fi = LocalDate.now();
+
+		 GPSCoordinate gpsd = new GPSCoordinate(41.6372231, -4.738908);
+		 Muelle md = new Muelle(50, gpsd, true, 10, 10);
+		 Puerto pd = new Puerto("AA-AAA");
+		 LocalDate ff = LocalDate.now();
+
+		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+		 
+		 double costePorDia = -100;
+		 double costePorMillaNautica = 50;
+		 
+		 t.getCosteTrayecto(costePorDia, costePorMillaNautica);
+	 }
+	 
+	 @Test(expected = IllegalArgumentException.class)
+	 public void testGetCosteTrayectoConCosetPorMillaNegativo() {
+		 GPSCoordinate gpsi = new GPSCoordinate(41.623071, -4.749593);
+		 Muelle mo = new Muelle(50, gpsi, true, 10, 10);
+		 Puerto po = new Puerto("AA-AAA");
+		 LocalDate fi = LocalDate.now();
+
+		 GPSCoordinate gpsd = new GPSCoordinate(41.6372231, -4.738908);
+		 Muelle md = new Muelle(50, gpsd, true, 10, 10);
+		 Puerto pd = new Puerto("AA-AAA");
+		 LocalDate ff = LocalDate.now();
+
+		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+		 
+		 double costePorDia = 100;
+		 double costePorMillaNautica = -50;
+		 
+		 t.getCosteTrayecto(costePorDia, costePorMillaNautica);
+	 }
 		
 	 @Test
 	 public void testToString() {
