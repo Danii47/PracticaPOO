@@ -1,6 +1,7 @@
 package es.uva.poo.lab;
 
 import static java.lang.Math.pow;
+import java.util.ArrayList;
 
 public class Contenedor {
 
@@ -17,6 +18,7 @@ public class Contenedor {
 	private double volumenMetrosCubicos;
 	private ESTADOS estado;
 	private boolean techo;
+	private ArrayList<Trayecto> trayectos;
 
 	public Contenedor(String codigoIdentificador, double pesoKg, double cargaUtilMaximaKg, double volumenMetrosCubicos,
 			ESTADOS estado, boolean techo) {
@@ -37,6 +39,7 @@ public class Contenedor {
 		this.volumenMetrosCubicos = volumenMetrosCubicos;
 		this.estado = estado;
 		this.techo = techo;
+		trayectos = new ArrayList<Trayecto>();
 	}
 	
 	public Contenedor(Contenedor contenedor) {
