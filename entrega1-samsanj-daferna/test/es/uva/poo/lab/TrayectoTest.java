@@ -4,11 +4,32 @@ import java.time.LocalDate;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.junit.Before;
 
 import es.uva.inf.poo.maps.GPSCoordinate;
 
+
 public class TrayectoTest {
 
+    private Muelle muelleOrigen;
+    private Muelle muelleDestino;
+    private Puerto puertoOrigen;
+    private Puerto puertoDestino;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+    private Trayecto trayecto;
+
+    @Before
+    public void setUp() {
+        muelleOrigen = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+        muelleDestino = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+        puertoOrigen = new Puerto("AA-AAA");
+        puertoDestino = new Puerto("AA-AAB");
+        fechaInicio = LocalDate.of(2024, 11, 1);
+        fechaFin = LocalDate.of(2024, 11, 10);
+        trayecto = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin);
+    }
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConMuelleOrigenNull() {
 		Puerto po = new Puerto("AA-AAA");
