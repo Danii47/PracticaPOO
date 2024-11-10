@@ -39,8 +39,11 @@ public class TrayectoTest {
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		Puerto pd = new Puerto("AA-AAB");
 		LocalDate ff = LocalDate.now();
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		new Trayecto(null, po, fi, md, pd, ff);
+		new Trayecto(null, po, fi, md, pd, ff, cpd, cpmn);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -53,8 +56,11 @@ public class TrayectoTest {
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		Puerto pd = new Puerto("AA-AAB");
 		LocalDate ff = LocalDate.now();
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		new Trayecto(mo, null, fi, md, pd, ff);
+		new Trayecto(mo, null, fi, md, pd, ff, cpd, cpmn);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -67,8 +73,11 @@ public class TrayectoTest {
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		Puerto pd = new Puerto("AA-AAB");
 		LocalDate ff = LocalDate.now();
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		new Trayecto(mo, po, null, md, pd, ff);
+		new Trayecto(mo, po, null, md, pd, ff, cpd, cpmn);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -80,8 +89,11 @@ public class TrayectoTest {
 		
 		Puerto pd = new Puerto("AA-AAB");
 		LocalDate ff = LocalDate.now();
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		new Trayecto(mo, po, fi, null, pd, ff);
+		new Trayecto(mo, po, fi, null, pd, ff, cpd, cpmn);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -94,8 +106,11 @@ public class TrayectoTest {
 		GPSCoordinate gpsd = new GPSCoordinate(10, 10);
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		LocalDate ff = LocalDate.now();
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		new Trayecto(mo, po, fi, md, null, ff);
+		new Trayecto(mo, po, fi, md, null, ff, cpd, cpmn);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -108,8 +123,11 @@ public class TrayectoTest {
 		GPSCoordinate gpsd = new GPSCoordinate(10, 10);
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		Puerto pd = new Puerto("AA-AAB");
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		new Trayecto(mo, po, fi, md, pd, null);
+		new Trayecto(mo, po, fi, md, pd, null, cpd, cpmn);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -123,8 +141,47 @@ public class TrayectoTest {
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		Puerto pd = new Puerto("AA-AAB");
 		LocalDate ff = LocalDate.of(2000, 1, 1);
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		new Trayecto(mo, po, fi, md, pd, ff);
+		new Trayecto(mo, po, fi, md, pd, ff, cpd, cpmn);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testCrearTrayectoConCosetPorDiaNegativo() {
+		GPSCoordinate gpsi = new GPSCoordinate(41.623071, -4.749593);
+		Muelle mo = new Muelle(50, gpsi, true, 10, 10);
+		Puerto po = new Puerto("AA-AAA");
+		LocalDate fi = LocalDate.now();
+
+		GPSCoordinate gpsd = new GPSCoordinate(41.6372231, -4.738908);
+		Muelle md = new Muelle(50, gpsd, true, 10, 10);
+		Puerto pd = new Puerto("AA-AAA");
+		LocalDate ff = LocalDate.now();
+
+		double costePorDia = -100;
+		double costePorMillaNautica = 50;
+		new Trayecto(mo, po, fi, md, pd, ff, costePorDia, costePorMillaNautica);
+		
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testCrearTrayectoConCosetPorMillaNegativo() {
+		GPSCoordinate gpsi = new GPSCoordinate(41.623071, -4.749593);
+		Muelle mo = new Muelle(50, gpsi, true, 10, 10);
+		Puerto po = new Puerto("AA-AAA");
+		LocalDate fi = LocalDate.now();
+
+		GPSCoordinate gpsd = new GPSCoordinate(41.6372231, -4.738908);
+		Muelle md = new Muelle(50, gpsd, true, 10, 10);
+		Puerto pd = new Puerto("AA-AAA");
+		LocalDate ff = LocalDate.now();
+
+		double costePorDia = 100;
+		double costePorMillaNautica = -50;
+
+		new Trayecto(mo, po, fi, md, pd, ff, costePorDia, costePorMillaNautica);
+		
 	}
 	
 	@Test
@@ -138,8 +195,11 @@ public class TrayectoTest {
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		Puerto pd = new Puerto("AA-AAA");
 		LocalDate ff = LocalDate.now();
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+		Trayecto t = new Trayecto(mo, po, fi, md, pd, ff, cpd, cpmn);
 		
 		assertFalse(t.fechaFinSuperiorAOtra(LocalDate.now()));
 	}
@@ -155,8 +215,11 @@ public class TrayectoTest {
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		Puerto pd = new Puerto("AA-AAA");
 		LocalDate ff = LocalDate.now();
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+		Trayecto t = new Trayecto(mo, po, fi, md, pd, ff, cpd, cpmn);
 		
 		assertTrue(t.fechaFinSuperiorAOtra(LocalDate.of(2020, 1, 1)));
 	}
@@ -172,8 +235,11 @@ public class TrayectoTest {
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		Puerto pd = new Puerto("AA-AAA");
 		LocalDate ff = LocalDate.now();
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+		Trayecto t = new Trayecto(mo, po, fi, md, pd, ff, cpd, cpmn);
 		
 		assertEquals(0, t.getDuracionDias());
 	 }
@@ -189,8 +255,11 @@ public class TrayectoTest {
 		Muelle md = new Muelle(50, gpsd, true, 10, 10);
 		Puerto pd = new Puerto("AA-AAA");
 		LocalDate ff = LocalDate.of(2024, 1, 20);
+
+		double cpd = 0;
+		double cpmn = 0;
 		
-		Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+		Trayecto t = new Trayecto(mo, po, fi, md, pd, ff, cpd, cpmn);
 		
 		assertEquals(10, t.getDuracionDias());
 	 }
@@ -207,7 +276,10 @@ public class TrayectoTest {
 		 Puerto pd = new Puerto("AA-AAA");
 		 LocalDate ff = LocalDate.of(2024, 1, 20);
 
-		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+		double cpd = 0;
+		double cpmn = 0;
+
+		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff, cpd, cpmn);
 		 assertEquals(1.807, t.getDistanciaKM(), GPSCoordinate.PRECISION_IN_DISTANCE);
 	 }
 		
@@ -223,7 +295,10 @@ public class TrayectoTest {
 		 Puerto pd = new Puerto("AA-AAA");
 		 LocalDate ff = LocalDate.of(2024, 1, 20);
 
-		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+			double cpd = 0;
+			double cpmn = 0;
+
+		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff, cpd, cpmn);
 		 assertEquals(t.getDistanciaKM() * Trayecto.CONVERSION_MILLAS_NAUTICAS, t.getDistanciaMillasNauticas(), GPSCoordinate.PRECISION_IN_DISTANCE);
 	 }
 		
@@ -239,12 +314,13 @@ public class TrayectoTest {
 		 Puerto pd = new Puerto("AA-AAA");
 		 LocalDate ff = LocalDate.of(2024, 1, 20);
 
-		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
-		 
 		 double costePorDia = 100;
 		 double costePorMillaNautica = 50;
+
+		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff, costePorDia, costePorMillaNautica);
 		 double costeEsperado = (t.getDuracionDias() * costePorDia) + (t.getDistanciaMillasNauticas() * costePorMillaNautica);
-		 assertEquals(costeEsperado, t.getCosteTrayecto(costePorDia, costePorMillaNautica), 0.001);
+		 
+		 assertEquals(costeEsperado, t.getCosteTrayecto(), 0.001);
 	 }
 	 
 	 @Test
@@ -259,53 +335,15 @@ public class TrayectoTest {
 		 Puerto pd = new Puerto("AA-AAA");
 		 LocalDate ff = LocalDate.now();
 
-		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
-		 
 		 double costePorDia = 100;
 		 double costePorMillaNautica = 50;
+		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff, costePorDia, costePorMillaNautica);
+		 
 		 double costeEsperado = (t.getDuracionDias() * costePorDia) + (t.getDistanciaMillasNauticas() * costePorMillaNautica);
-		 assertEquals(costeEsperado, t.getCosteTrayecto(costePorDia, costePorMillaNautica), 0.001);
+		 assertEquals(costeEsperado, t.getCosteTrayecto(), 0.001);
 	 }
 	 
-	 @Test(expected = IllegalArgumentException.class)
-	 public void testGetCosteTrayectoConCosetPorDiaNegativo() {
-		 GPSCoordinate gpsi = new GPSCoordinate(41.623071, -4.749593);
-		 Muelle mo = new Muelle(50, gpsi, true, 10, 10);
-		 Puerto po = new Puerto("AA-AAA");
-		 LocalDate fi = LocalDate.now();
-
-		 GPSCoordinate gpsd = new GPSCoordinate(41.6372231, -4.738908);
-		 Muelle md = new Muelle(50, gpsd, true, 10, 10);
-		 Puerto pd = new Puerto("AA-AAA");
-		 LocalDate ff = LocalDate.now();
-
-		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
-		 
-		 double costePorDia = -100;
-		 double costePorMillaNautica = 50;
-		 
-		 t.getCosteTrayecto(costePorDia, costePorMillaNautica);
-	 }
-	 
-	 @Test(expected = IllegalArgumentException.class)
-	 public void testGetCosteTrayectoConCosetPorMillaNegativo() {
-		 GPSCoordinate gpsi = new GPSCoordinate(41.623071, -4.749593);
-		 Muelle mo = new Muelle(50, gpsi, true, 10, 10);
-		 Puerto po = new Puerto("AA-AAA");
-		 LocalDate fi = LocalDate.now();
-
-		 GPSCoordinate gpsd = new GPSCoordinate(41.6372231, -4.738908);
-		 Muelle md = new Muelle(50, gpsd, true, 10, 10);
-		 Puerto pd = new Puerto("AA-AAA");
-		 LocalDate ff = LocalDate.now();
-
-		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
-		 
-		 double costePorDia = 100;
-		 double costePorMillaNautica = -50;
-		 
-		 t.getCosteTrayecto(costePorDia, costePorMillaNautica);
-	 }
+	
 		
 	 @Test
 	 public void testToString() {
@@ -319,7 +357,10 @@ public class TrayectoTest {
 		 Puerto pd = new Puerto("AA-AAA");
 		 LocalDate ff = LocalDate.of(2024, 1, 20);
 
-		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff);
+		 double cpd = 0;
+		 double cpmn = 0;
+
+		 Trayecto t = new Trayecto(mo, po, fi, md, pd, ff, cpd, cpmn);
 			
 		 String esperado = (
 				 "Localidad y país Puerto Origen: " + po.getCodigoIdentificacion() +

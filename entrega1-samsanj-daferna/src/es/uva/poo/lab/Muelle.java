@@ -18,13 +18,23 @@ public class Muelle {
 
 		if (localizacion == null)
 			throw new IllegalArgumentException("La localización no puede ser null.");
+<<<<<<< HEAD
 
+=======
+					
+>>>>>>> f320ef7e052eccce3b206fd1729296156ac64cde
 		if (numeroPlazas <= 0)
 			throw new IllegalArgumentException("Las plazas deben ser positivas.");
 
 		if (maximoContenedoresApilables <= 0)
 			throw new IllegalArgumentException("El número de contenedores máximos apilados debe ser mayor que 0.");
 
+<<<<<<< HEAD
+=======
+
+
+		
+>>>>>>> f320ef7e052eccce3b206fd1729296156ac64cde
 		this.codigoIdentificacion = codigoIdentificacion;
 		this.localizacion = localizacion;
 		this.operativo = operativo;
@@ -114,6 +124,7 @@ public class Muelle {
 
 		return plazasVacias;
 	}
+<<<<<<< HEAD
 
 	public Contenedor[] getContenedoresEnPlaza(int plaza) {
 		if (plaza < 0 || plaza > getNumeroPlazas())
@@ -128,6 +139,10 @@ public class Muelle {
 		return contenedores;
 	}
 
+=======
+	
+	
+>>>>>>> f320ef7e052eccce3b206fd1729296156ac64cde
 	public int getPlazasLlenas() {
 		int plazasLlenas = 0;
 
@@ -156,7 +171,25 @@ public class Muelle {
 	public int getPlazasSemillenas() {
 		return getNumeroPlazas() - (getPlazasVacias() + getPlazasLlenas());
 	}
+<<<<<<< HEAD
 
+=======
+	
+	public Contenedor[] getContenedoresEnPlaza(int plaza) {
+		if (plaza < 0 || plaza > getNumeroPlazas())
+			throw new IllegalArgumentException("Número de plaza invalido.");
+		
+		Contenedor[] contenedores = new Contenedor[plazas[plaza].length];
+		
+		for (int i = 0; i < contenedores.length; i++) {
+			contenedores[i] = plazas[plaza][i] == null ? null : new Contenedor(plazas[plaza][i]);
+		}
+		
+		return contenedores;
+	}
+
+	// TODO: Hacer la documentacion de que devuelve error al no encontrarlo
+>>>>>>> f320ef7e052eccce3b206fd1729296156ac64cde
 	public int getPlazaContenedor(String codigoIdentificador) {
 		if (codigoIdentificador == null)
 			throw new IllegalArgumentException("El código de identificación no puede ser null.");
@@ -204,6 +237,7 @@ public class Muelle {
 	private boolean plazaValida(int plaza) {
 		return plaza < 0 || plaza > getNumeroPlazas() - 1;
 	}
+<<<<<<< HEAD
 
 	public void asignarContenedor(Contenedor contenedor, int plaza) {
 		if (!plazaValida(plaza))
@@ -212,6 +246,16 @@ public class Muelle {
 		if (!posibleApilar(contenedor, plaza))
 			throw new IllegalArgumentException("No es posible asignar el contenedor a la plaza.");
 
+=======
+	
+	public void apilarContenedor(Contenedor contenedor, int plaza) {
+		if (!plazaValida(plaza))
+			throw new IllegalArgumentException("Plaza no válida.");
+		
+		if (!posibleApilar(contenedor, plaza)) 
+			throw new IllegalArgumentException("No es posible apilar el contenedor a la plaza.");
+		
+>>>>>>> f320ef7e052eccce3b206fd1729296156ac64cde
 		int i = 0;
 		boolean colocado = false;
 		while (i < getMaximoContenedoresApilables() && !colocado) {
