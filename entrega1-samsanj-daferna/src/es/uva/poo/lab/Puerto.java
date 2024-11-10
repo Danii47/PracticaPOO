@@ -153,19 +153,19 @@ public class Puerto {
 	    return muellesConEspacio.toArray(new Muelle[0]);
 	}
 	
-	public Muelle[] getMuellesCercanos(GPSCoordinate localizacion, int distancia) {
+	public Muelle[] getMuellesCercanos(GPSCoordinate localizacion, double distancia) {
 		if (localizacion == null)
 			throw new IllegalArgumentException("La localizacion no puede ser null.");
 		
-		ArrayList<Muelle> muellesConEspacio = new ArrayList<>();
+		ArrayList<Muelle> muellesCercanos = new ArrayList<>();
 
 	    for (Muelle muelle: muelles) {
 	        if (muelle.getLocalizacion().getDistanceTo(localizacion) <= distancia){
-	        	muellesConEspacio.add(new Muelle(muelle));
+	        	muellesCercanos.add(new Muelle(muelle));
 	        }
 	    }
 
-	    return muellesConEspacio.toArray(new Muelle[0]);
+	    return muellesCercanos.toArray(new Muelle[0]);
 	}
 	
 	public boolean muellePerteneceAlPuerto(Muelle muelle) {

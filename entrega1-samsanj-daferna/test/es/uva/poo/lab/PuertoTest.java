@@ -307,4 +307,49 @@ public class PuertoTest {
 		assertArrayEquals(new Muelle[] {}, p.getMuellesConEspacio());
 		assertNotSame(new Muelle[] {}, p.getMuellesConEspacio());
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetMuellesCercanosLocalizacionNullDaError() {
+		puerto.getMuellesCercanos(null, 10);
+	}
+	
+	@Test
+	public void testGetMuellesCercanosLocalizacionFunciona() {
+		assertArrayEquals(puerto.getMuellesCercanos(new GPSCoordinate(41.623071, -4.749593), 5), muelles);
+	}
+	
+	@Test
+	public void testGetMuellesCercanosAlgunos() {
+		Muelle m = new Muelle(75, new GPSCoordinate(0, 0), true, 1, 1);
+		m.apilarContenedor(new Contenedor("ABCJ1231327", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true), 0);
+		puerto.agregarMuelle(m);
+		assertArrayEquals(puerto.getMuellesCercanos(new GPSCoordinate(41.623071, -4.749593), 5), muelles);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testMuellePerteneceAlPuertoNullDaError() {
+		puerto.muellePerteneceAlPuerto(null);
+	}
+	
+	@Test
+	public void testMuellePerteneceAlPuertoNoPertenece() {
+		Muelle m = new Muelle(75, new GPSCoordinate(0, 0), true, 1, 1);
+		assertFalse(puerto.muellePerteneceAlPuerto(m));
+	}
+	
+	@Test
+	public void testMuellePerteneceAlPuertoPertenece() {
+		assertTrue(puerto.muellePerteneceAlPuerto(muelle));
+	}
+	
+	@Test
+	public void testEqualsConNull() {
+		assertFalse(puerto.equals(null));
+	}
+	
+	@Test
+	public void testEqualsIguales() {
+		Puerto p = new Puerto(puerto);
+		assertTrue(puerto.equals(p));
+	}
 }
