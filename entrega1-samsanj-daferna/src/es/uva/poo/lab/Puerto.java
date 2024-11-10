@@ -91,7 +91,7 @@ public class Puerto {
 		
 		for (Muelle m: muelles) {
 			if (m.getCodigoIdentificacion() == muelle.getCodigoIdentificacion())
-				throw new IllegalArgumentException("Ya existe un muerto con ese código de identificación.");
+				throw new IllegalArgumentException("Ya existe un muelle con ese código de identificación.");
 		}
 		
 		muelles.add(new Muelle(muelle));

@@ -74,7 +74,7 @@ public class ContenedorTest {
     }
 	
     public void testCrearContenedorConIdentificacionValida() {
-        new Contenedor("ABCD1231323", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+        new Contenedor("ABCJ1231327", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
     }
 	
     public void testCrearContenedorConIdentificacionValida2() {
