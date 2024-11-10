@@ -181,7 +181,6 @@ public class Puerto {
 	
 	private boolean comprobarMuellesIguales(Puerto puerto) {
 		if (getMuelles().length != puerto.getMuelles().length) return false;
-		
 		Muelle[] puertoOtroMuelles = puerto.getMuelles();
 		
 		for (int i = 0; i < getMuelles().length; i++) {
@@ -198,7 +197,7 @@ public class Puerto {
 		Puerto p = (Puerto) puerto;
 		
 		return (
-			codigoIdentificacion.equals(getCodigoIdentificacion()) &&
+			codigoIdentificacion.equals(p.getCodigoIdentificacion()) &&
 			comprobarMuellesIguales(p)
 		);
 	}

@@ -348,6 +348,25 @@ public class PuertoTest {
 	}
 	
 	@Test
+	public void testEqualsDistintoCodigoIdentificacion() {
+		Puerto p = new Puerto("AA-AAZ", muelles);
+		assertFalse(puerto.equals(p));
+	}
+	
+	@Test
+	public void testEqualsDistintaLongitudMuelles() {
+		Puerto p = new Puerto(codigoIdentificacion);
+		assertFalse(puerto.equals(p));
+	}
+	
+	@Test
+	public void testEqualsDistintosMuelles() {
+		muelle.setCodigoIdentificacion(15);
+		Puerto p = new Puerto(codigoIdentificacion, new Muelle[] {muelle});
+		assertFalse(puerto.equals(p));
+	}
+	
+	@Test
 	public void testEqualsIguales() {
 		Puerto p = new Puerto(puerto);
 		assertTrue(puerto.equals(p));

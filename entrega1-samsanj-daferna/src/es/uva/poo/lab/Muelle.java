@@ -389,7 +389,7 @@ public class Muelle {
 		int i = getMaximoContenedoresApilables() - 1;
 		boolean contenedorEncontrado = false;
 
-		while (i >= 0 && !contenedorEncontrado) {
+		while (i > 0 && !contenedorEncontrado) {
 			if (plazas[plaza][i] == null)
 				i--;
 			else
@@ -410,12 +410,6 @@ public class Muelle {
 	 * @return True si las plazas son iguales, False en caso contrario.
 	 */
 	private boolean comprobarContenedoresIguales(Muelle muelle) {
-
-		
-
-		if (getPlazas().length != muelle.getPlazas().length) return false;
-		if (getPlazas()[0].length != muelle.getPlazas()[0].length) return false;
-		
 		Contenedor[][] muelleOtroContenedores = muelle.getPlazas();
 		
 		for (int i = 0; i < muelleOtroContenedores.length; i++) {
