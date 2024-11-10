@@ -171,6 +171,13 @@ public class MuelleTest {
 		assertEquals(1, muelle.getPlazasLlenas());
 	}
 
+	@Test
+	public void testGetPlazasLlenas2MaximoApilableConContenedorSinTecho() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		muelle.apilarContenedor(new Contenedor("BICU1234565", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, false), 0);
+		assertEquals(1, muelle.getPlazasLlenas());
+	}
+
 
 	@Test
 	public void testGetPlazasLlenas2MaximoApilableSinContenedores() {
