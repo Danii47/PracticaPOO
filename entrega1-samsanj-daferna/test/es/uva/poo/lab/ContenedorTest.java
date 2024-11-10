@@ -73,16 +73,29 @@ public class ContenedorTest {
         new Contenedor("BICUB234565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
     }
 	
+	@Test(expected = IllegalArgumentException.class)
+    public void testCrearContenedorConIdentificacionCuartoCaracterInvalidoDevuelveError() {
+        new Contenedor("BICT1234565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+	@Test
     public void testCrearContenedorConIdentificacionValida() {
         new Contenedor("ABCJ1231327", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
     }
 	
+	@Test
     public void testCrearContenedorConIdentificacionValida2() {
         new Contenedor("BICU1234565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
     }
 	
+	@Test
     public void testCrearContenedorConIdentificacionValida3() {
-        new Contenedor("BICU1234570", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+        new Contenedor("BICZ1234574", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+	@Test
+    public void testCrearContenedorConIdentificacionValida4() {
+        new Contenedor("BICU1234550", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -249,7 +262,7 @@ public class ContenedorTest {
     	
     	contenedor.agregarTrayecto(trayecto);
     	
-        Contenedor c = new Contenedor("BICU1234565", 5000, 10000, 20, Contenedor.ESTADOS.RECOGIDA, false);
+        Contenedor c = new Contenedor("BICU1234565", 5000, 10000, 20, Contenedor.ESTADOS.RECOGIDA, true);
 
         assertFalse(contenedor.equals(c));
     }
@@ -273,8 +286,30 @@ public class ContenedorTest {
         t.setCostePorDia(10);
         
         c.agregarTrayecto(t);
-
+        
         assertFalse(contenedor.equals(c));
+    }
+    
+    @Test
+    public void testEqualsObjetoTrayectosIguales() {
+    	Muelle muelleOrigen = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+    	Muelle muelleDestino = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+        Puerto puertoOrigen = new Puerto("AA-AAA");
+        puertoOrigen.agregarMuelle(muelleOrigen);
+        Puerto puertoDestino = new Puerto("AA-AAB");
+        puertoDestino.agregarMuelle(muelleDestino);
+        LocalDate fechaInicio = LocalDate.of(2024, 11, 1);
+        LocalDate fechaFin = LocalDate.of(2024, 11, 10);
+        Trayecto trayecto = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, 100, 100);
+    	
+    	contenedor.agregarTrayecto(trayecto);
+    	
+        Contenedor c = new Contenedor("BICU1234565", 5000, 10000, 20, Contenedor.ESTADOS.RECOGIDA, true);
+        Trayecto t = new Trayecto(trayecto);
+        
+        c.agregarTrayecto(t);
+        
+        assertTrue(contenedor.equals(c));
     }
     
     @Test
