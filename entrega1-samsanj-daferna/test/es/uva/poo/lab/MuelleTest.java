@@ -42,7 +42,7 @@ public class MuelleTest {
 		assertEquals(muelle.getLocalizacion(), muelle2.getLocalizacion());
 		assertEquals(muelle.getOperativo(), muelle2.getOperativo());
 		assertEquals(muelle.getNumeroPlazas(), muelle2.getNumeroPlazas());
-		assertEquals(muelle.getMaximoApilables(), muelle2.getMaximoApilables());
+		assertEquals(muelle.getMaximoContenedoresApilables(), muelle2.getMaximoContenedoresApilables());
 	}
 
 	@Test (expected = IllegalArgumentException.class)
@@ -51,15 +51,81 @@ public class MuelleTest {
 	}
 
 	@Test
+	public void testGetPlazasConPlazasVacias() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		assertArrayEquals(new Contenedor[1][1], muelle.getPlazas());
+	}
+
+	@Test
+	public void testGetPlazasConPlazasConContenedor() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		Contenedor contenedor = new Contenedor("BICU1234565", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);
+		muelle.apilarContenedor(contenedor, 0);
+		assertArrayEquals(new Contenedor[][] {{contenedor}}, muelle.getPlazas());
+	}
+
+	@Test
+	public void testGetMaximoContenedoresApilables() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		assertEquals(1, muelle.getMaximoContenedoresApilables());
+	}
+
+	@Test
+	public void testSetMaximoContenedoresApilables() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		muelle.setMaximoContenedoresApilables(2);
+		assertEquals(2, muelle.getMaximoContenedoresApilables());
+	}
+
+
+	@Test
 	public void testGetCodigoIdentificacion() {
 		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
 		assertEquals(10, muelle.getCodigoIdentificacion());
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void testSetCodigoIdentificacionMenor10() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		muelle.setCodigoIdentificacion(9);
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void testSetCodigoIdentificacionMayor99() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		muelle.setCodigoIdentificacion(100);
+	}
+
+	@Test
+	public void testSetCodigoIdentificacionCorrecto() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		muelle.setCodigoIdentificacion(11);
+		assertEquals(11, muelle.getCodigoIdentificacion());
 	}
 
 	@Test
 	public void testGetLocalizacion() {
 		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
 		assertEquals(new GPSCoordinate(0, 0), muelle.getLocalizacion());
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void testSetLocalizacionNull() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		muelle.setLocalizacion(null);
+	}
+
+	@Test
+	public void testSetLocalizacionCorrecta() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		muelle.setLocalizacion(new GPSCoordinate(1, 1));
+		assertEquals(new GPSCoordinate(1, 1), muelle.getLocalizacion());
+	}
+
+	@Test
+	public void testGetNumeroPlazas() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		assertEquals(1, muelle.getNumeroPlazas());
 	}
 
 	@Test
@@ -76,18 +142,6 @@ public class MuelleTest {
 	}
 
 	@Test
-	public void testGetNumeroPlazas() {
-		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
-		assertEquals(1, muelle.getNumeroPlazas());
-	}
-
-	@Test
-	public void testGetMaximoApilables() {
-		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
-		assertEquals(1, muelle.getMaximoApilables());
-	}
-	
-	@Test
 	public void testGetPlazasVacias() {
 		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
 		assertEquals(1, muelle.getPlazasVacias());
@@ -99,6 +153,8 @@ public class MuelleTest {
 		assertEquals(0, muelle.getPlazasLlenas());
 	}
 
+	
+
 	@Test
 	public void testGetPlazasLlenas2MaximoApilable() {
 		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 2);
@@ -109,16 +165,24 @@ public class MuelleTest {
 	public void testGetPlazasSemillenas() {
 		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 2);
 		muelle.apilarContenedor(new Contenedor("BICU1234565", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true), 0);
-		assertEquals(1, muelle.getPlazasLlenas());
+		assertEquals(1, muelle.getPlazasSemillenas());
 	}
 
 	
 
 	@Test
-	public void testGetContenedoresEnPlaza() {
+	public void testGetContenedoresEnPlazaVacias() {
 		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
 
-		assertEquals(new Contenedor[1], muelle.getContenedoresEnPlaza(0));
+		assertArrayEquals(new Contenedor[1], muelle.getContenedoresEnPlaza(0));
+	}
+
+	@Test
+	public void testGetContenedoresEnPlazaConContenedor() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		Contenedor contenedor = new Contenedor("BICU1234565", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);
+		muelle.apilarContenedor(contenedor, 0);
+		assertArrayEquals(new Contenedor[] {contenedor}, muelle.getContenedoresEnPlaza(0));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -127,7 +191,7 @@ public class MuelleTest {
 	  muelle.getContenedoresEnPlaza(-1);
 	}
 
-	
+
 
 	
 
