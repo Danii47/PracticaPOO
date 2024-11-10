@@ -2,6 +2,7 @@ package es.uva.poo.lab;
 
 import static java.lang.Math.pow;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Contenedor {
 
@@ -52,6 +53,7 @@ public class Contenedor {
 		this.volumenMetrosCubicos = contenedor.getVolumenMetrosCubicos();
 		this.estado = contenedor.getEstado();
 		this.techo = contenedor.getTecho();
+		this.trayectos = new ArrayList<Trayecto>(Arrays.asList(contenedor.getTrayectos()));
 	}
 
 	public void setEnRecogida() {

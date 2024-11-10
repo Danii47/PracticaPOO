@@ -1,6 +1,7 @@
 package es.uva.poo.lab;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import es.uva.inf.poo.maps.GPSCoordinate;
 
@@ -28,11 +29,7 @@ public class Puerto {
 	
 	public Puerto(Puerto puerto) {
 		this.codigoIdentificacion = puerto.getCodigoIdentificacion();
-		this.muelles = new ArrayList<Muelle>();
-		
-		for (int i = 0; i < puerto.getNumeroMuelles(); i++) {
-			this.muelles.add(puerto.getMuellePorIndice(i));
-		}
+		this.muelles = new ArrayList<Muelle>(Arrays.asList(puerto.getMuelles()));
 	}
 	
 	private void comprobarcodigoIdentificacion(String codigoIdentificacion) {
@@ -58,6 +55,16 @@ public class Puerto {
 	
 	public String getCodigoIdentificacion() {
 		return codigoIdentificacion;
+	}
+	
+	public Muelle[] getMuelles() {
+		Muelle[] muelles = new Muelle[this.muelles.size()];
+		
+		for (int i = 0; i < muelles.length; i++) {
+			muelles[i] = new Muelle(this.muelles.get(i));
+		}
+		
+		return muelles;
 	}
 	
 	public int getNumeroMuelles() {
@@ -152,6 +159,41 @@ public class Puerto {
 	    }
 
 	    return muellesConEspacio.toArray(new Muelle[0]);
+	}
+	
+	public boolean muellePerteneceAlPuerto(Muelle muelle) {
+		if (muelle == null)
+			throw new IllegalArgumentException("El muelle introducido no puede ser null.");
+		
+		for (Muelle m: muelles) {
+			if (m.equals(muelle)) return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean comprobarMuellesIguales(Puerto puerto) {
+		if (getMuelles().length != puerto.getMuelles().length) return false;
+		
+		Muelle[] puertoOtroMuelles = puerto.getMuelles();
+		
+		for (int i = 0; i < getMuelles().length; i++) {
+			if (!getMuelles()[i].equals(puertoOtroMuelles[i])) return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean equals(Object puerto) {
+		if (!(puerto instanceof Puerto)) return false;
+		
+		Puerto p = (Puerto) puerto;
+		
+		return (
+			codigoIdentificacion.equals(getCodigoIdentificacion()) &&
+			comprobarMuellesIguales(p)
+		);
 	}
 }
 

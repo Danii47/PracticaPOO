@@ -50,6 +50,11 @@ public class Trayecto {
 		if (costePorMillaNautica < 0)
 			throw new IllegalArgumentException("El coste por milla naútica no puede ser negativo.");
 
+		if (!puertoOrigen.muellePerteneceAlPuerto(muelleOrigen))
+			throw new IllegalArgumentException("El muelle de origen debe pertenecer al puerto de origen.");
+	
+		if (!puertoDestino.muellePerteneceAlPuerto(muelleDestino))
+			throw new IllegalArgumentException("El muelle de destino debe pertenecer al puerto de destino.");
 		
 		this.muelleOrigen = new Muelle(muelleOrigen);
 		this.puertoOrigen = new Puerto(puertoOrigen);
@@ -62,6 +67,19 @@ public class Trayecto {
 		this.costePorDia = costePorDia;
 		this.costePorMillaNautica = costePorMillaNautica;
 		
+	}
+	
+	public Trayecto(Trayecto trayecto) {
+		this.muelleOrigen = trayecto.getMuelleOrigen();
+		this.puertoOrigen = trayecto.getPuertoOrigen();
+		this.fechaInicio = trayecto.getFechaInicio();
+		
+		this.muelleDestino = trayecto.getMuelleDestino();
+		this.puertoDestino = trayecto.getPuertoDestino();
+		this.fechaFin = trayecto.getFechaFin();
+
+		this.costePorDia = trayecto.getCostePorDia();
+		this.costePorMillaNautica = trayecto.getCostePorMillaNautica();
 	}
 	
 	public LocalDate getFechaInicio() {
@@ -99,16 +117,83 @@ public class Trayecto {
 			throw new IllegalArgumentException("El coste por día no puede ser negativo.");
 		this.costePorDia = costePorDia;
 	}	
+	
 	public double getCostePorDia() {
 		return costePorDia;
 	}
+	
 	public void setCostePorMillaNautica(double costePorMillaNautica) {
 		if (costePorMillaNautica < 0)
 			throw new IllegalArgumentException("El coste por milla naútica no puede ser negativo.");
 		this.costePorMillaNautica = costePorMillaNautica;
 	}
+	
 	public double getCostePorMillaNautica() {
 		return costePorMillaNautica;
+	}
+	
+	public Muelle getMuelleOrigen() {
+		return new Muelle(muelleOrigen);
+	}
+	
+	public void setMuelleOrigen(Muelle muelleOrigen) {
+		if (muelleOrigen == null)
+			throw new IllegalArgumentException("El muelle introducido no puede ser null.");
+		
+		if (!puertoOrigen.muellePerteneceAlPuerto(muelleOrigen))
+			throw new IllegalArgumentException("El muelle introducido no pertenece al puerto origen.");
+	
+		this.muelleOrigen = new Muelle(muelleOrigen);
+	}
+	
+	public Muelle getMuelleDestino() {
+		return new Muelle(muelleDestino);
+	}
+	
+	public void setMuelleDestino(Muelle muelleDestino) {
+		if (muelleDestino == null)
+			throw new IllegalArgumentException("El muelle introducido no puede ser null.");
+		
+		if (!puertoDestino.muellePerteneceAlPuerto(muelleDestino))
+			throw new IllegalArgumentException("El muelle introducido no pertenece al puerto destino.");
+	
+		this.muelleDestino = new Muelle(muelleDestino);
+	}
+	
+	public Puerto getPuertoOrigen() {
+		return new Puerto(puertoOrigen);
+	}
+	
+	public void setPuertoYMuelleOrigen(Puerto puertoOrigen, Muelle muelleOrigen) {
+		if (puertoOrigen == null)
+			throw new IllegalArgumentException("El puerto introducido no puede ser null.");
+		
+		if (muelleOrigen == null)
+			throw new IllegalArgumentException("El muelle introducido no puede ser null.");
+		
+		if (!puertoOrigen.muellePerteneceAlPuerto(muelleOrigen))
+			throw new IllegalArgumentException("El muelle introducido no pertenece al puerto introducido.");
+	
+		this.puertoOrigen = new Puerto(puertoOrigen);
+		this.muelleOrigen = new Muelle(muelleOrigen);
+	}
+	
+	public Puerto getPuertoDestino() {
+		return new Puerto(puertoDestino);
+	}
+	
+	public void setPuertoYMuelleDestino(Puerto puertoDestino, Muelle muelleDestino) {
+		if (puertoDestino == null)
+			throw new IllegalArgumentException("El puerto introducido no puede ser null.");
+		
+		if (muelleDestino == null)
+			throw new IllegalArgumentException("El muelle introducido no puede ser null.");
+		
+		if (!puertoDestino.muellePerteneceAlPuerto(muelleDestino))
+			throw new IllegalArgumentException("El muelle introducido no pertenece al puerto introducido.");
+	
+		this.puertoDestino = new Puerto(puertoDestino);
+		this.muelleDestino = new Muelle(muelleDestino);
 	}
 	
 	// A partir del coste por día de trayecto dado y el coste por milla marina, obtener el precio de un trayecto en euros.
@@ -117,7 +202,6 @@ public class Trayecto {
 		int dias = getDuracionDias();
 		double distanciaMillasNauticas = getDistanciaMillasNauticas();
 		
-		// TODO: Es esta la operacion?
 		return (dias * getCostePorDia()) + (distanciaMillasNauticas * getCostePorMillaNautica());
 	}
 	
@@ -131,6 +215,23 @@ public class Trayecto {
 			"\nFecha de inicio del trayecto: " + fechaInicio.toString() +
 			"\nLocalidad y país Puerto Destino: " + puertoDestino.getCodigoIdentificacion() +
 			"\nFecha de fin del trayecto: " + fechaFin.toString()
+		);
+	}
+	
+	public boolean equals(Object trayecto) {
+		if (!(trayecto instanceof Trayecto)) return false;
+		
+		Trayecto t = (Trayecto) trayecto;
+		
+		return (
+			muelleOrigen.equals(t.getMuelleOrigen()) &&
+			muelleDestino.equals(t.getMuelleDestino()) &&
+			puertoOrigen.equals(t.getPuertoOrigen()) &&
+			puertoDestino.equals(t.getPuertoDestino()) &&
+			fechaInicio.equals(t.getFechaInicio()) &&
+			fechaFin.equals(t.getFechaFin()) &&
+			costePorDia == t.getCostePorDia() &&
+			costePorMillaNautica == t.getCostePorMillaNautica()
 		);
 	}
 }

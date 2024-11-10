@@ -24,7 +24,7 @@ public class ContenedorTest {
         assertEquals(5000, contenedor.getPesoKg(), 0.001);
         assertEquals(10000, contenedor.getCargaUtilMaximaKg(), 0.001);
         assertEquals(20, contenedor.getVolumenMetrosCubicos(), 0.001);
-        assertEquals(Contenedor.ESTADOS.TRANSITO, contenedor.getEstado());
+        assertEquals(Contenedor.ESTADOS.RECOGIDA, contenedor.getEstado());
         assertTrue(contenedor.getTecho());
     }
 	
@@ -172,13 +172,16 @@ public class ContenedorTest {
     	Muelle muelleOrigen = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
     	Muelle muelleDestino = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
         Puerto puertoOrigen = new Puerto("AA-AAA");
+        puertoOrigen.agregarMuelle(muelleOrigen);
         Puerto puertoDestino = new Puerto("AA-AAB");
+        puertoDestino.agregarMuelle(muelleDestino);
         LocalDate fechaInicio = LocalDate.of(2024, 11, 1);
         LocalDate fechaFin = LocalDate.of(2024, 11, 10);
         Trayecto trayecto = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, 100, 100);
     	
     	contenedor.agregarTrayecto(trayecto);
         assertEquals(1, contenedor.getTrayectos().length);
+        
         assertEquals(trayecto, contenedor.getTrayectos()[0]);
     }
     

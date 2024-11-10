@@ -71,14 +71,6 @@ public class MuelleTest {
 	}
 
 	@Test
-	public void testSetMaximoContenedoresApilables() {
-		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
-		muelle.setMaximoContenedoresApilables(2);
-		assertEquals(2, muelle.getMaximoContenedoresApilables());
-	}
-
-
-	@Test
 	public void testGetCodigoIdentificacion() {
 		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
 		assertEquals(10, muelle.getCodigoIdentificacion());

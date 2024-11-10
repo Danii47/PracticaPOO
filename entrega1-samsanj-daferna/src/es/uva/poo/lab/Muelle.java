@@ -61,15 +61,14 @@ public class Muelle {
 		return maximoContenedoresApilables;
 	}
 
-	public void setMaximoContenedoresApilables(int maximoContenedoresApilables) {
-		this.maximoContenedoresApilables = maximoContenedoresApilables;
-	}
-
 	public int getCodigoIdentificacion() {
 		return codigoIdentificacion;
 	}
 
 	public void setCodigoIdentificacion(int codigoIdentificacion) {
+		if (codigoIdentificacion < 10 || codigoIdentificacion > 99)
+			throw new IllegalArgumentException("El código de identificación debe ser un número de dos digitos.");
+
 		
 		this.codigoIdentificacion = codigoIdentificacion;
 	}
@@ -240,5 +239,43 @@ public class Muelle {
 		plazas[plaza][i] = null;
 
 		return contenedorDesapilado;
+	}
+	
+	private boolean comprobarContenedoresIguales(Muelle muelle) {
+		if (getPlazas().length != muelle.getPlazas().length) return false;
+		if (getPlazas()[0].length != muelle.getPlazas()[0].length) return false;
+		
+		Contenedor[][] muelleOtroContenedores = muelle.getPlazas();
+		
+		for (int i = 0; i < muelleOtroContenedores.length; i++) {
+			for (int j = 0; j < muelleOtroContenedores[0].length; j++) {				
+				if (
+					(getPlazas()[i][j] == null && muelleOtroContenedores[i][j] != null) ||
+					(
+						getPlazas()[i][j] != null &&
+						!getPlazas()[i][j].equals(muelleOtroContenedores[i][j])
+					)
+				) return false;
+			}
+			
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean equals(Object muelle) {
+		if (!(muelle instanceof Muelle)) return false;
+		
+		Muelle m = (Muelle) muelle;
+		
+		return (
+			getCodigoIdentificacion() == m.getCodigoIdentificacion() &&
+			getLocalizacion().equals(m.getLocalizacion()) &&
+			getOperativo() == m.getOperativo() &&
+			getNumeroPlazas() == m.getNumeroPlazas() &&
+			getMaximoContenedoresApilables() == m.getMaximoContenedoresApilables() &&
+			comprobarContenedoresIguales(m)
+		);
 	}
 }
