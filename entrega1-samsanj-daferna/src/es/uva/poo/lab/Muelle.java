@@ -57,14 +57,6 @@ public class Muelle {
 		return plazas;
 	}
 
-	public void setPlazas(Contenedor[][] plazas) {
-		for (int i = 0; i < plazas.length; i++) {
-			for (int j = 0; j < plazas[i].length; j++) {
-				this.plazas[i][j] = plazas[i][j] == null ? null : new Contenedor(plazas[i][j]);
-			}
-		}
-	}
-
 	public int getMaximoContenedoresApilables() {
 		return maximoContenedoresApilables;
 	}
@@ -78,6 +70,7 @@ public class Muelle {
 	}
 
 	public void setCodigoIdentificacion(int codigoIdentificacion) {
+		
 		this.codigoIdentificacion = codigoIdentificacion;
 	}
 
@@ -86,15 +79,13 @@ public class Muelle {
 	}
 
 	public void setLocalizacion(GPSCoordinate localizacion) {
+		if (localizacion == null)
+			throw new IllegalArgumentException("La localización no puede ser null.");
 		this.localizacion = localizacion;
 	}
 
 	public int getNumeroPlazas() {
 		return numeroPlazas;
-	}
-
-	public void setNumeroPlazas(int numeroPlazas) {
-		this.numeroPlazas = numeroPlazas;
 	}
 
 	public boolean getOperativo() {
@@ -205,7 +196,7 @@ public class Muelle {
 	}
 
 	private boolean plazaValida(int plaza) {
-		return plaza < 0 || plaza > getNumeroPlazas() - 1;
+		return plaza >= 0 && plaza <= getNumeroPlazas() - 1;
 	}
 	
 	public void apilarContenedor(Contenedor contenedor, int plaza) {
