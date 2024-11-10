@@ -29,18 +29,75 @@ public class ContenedorTest {
     }
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void testCrearContenedorConIdentificacionNoValidaDevuelveError() {
+	public void testCrearContenedorConIdentificacionNoValidaDigitoDeControlError() {
+		new Contenedor("ABCU1231320", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testCrearContenedorConIdentificacionNoValidaCuartoCaracter() {
 		new Contenedor("ABCD1231320", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-    public void testCrearContenedorConIdentificacionMenosCaracteresDevuelveError() {
-        new Contenedor("BICU123", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+	public void testCrearContenedorConIdentificacionNoValidaMalaLongitudError() {
+		new Contenedor("AB11320", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+    public void testCrearContenedorConIdentificacionNumerosDevuelveError() {
+        new Contenedor("23451234565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+	@Test(expected = IllegalArgumentException.class)
+    public void testCrearContenedorConIdentificacionLetrasNoValidasDevuelveError() {
+        new Contenedor("B@CU1234565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+	@Test(expected = IllegalArgumentException.class)
+    public void testCrearContenedorConIdentificacionLetrasNoValidas2DevuelveError() {
+        new Contenedor("BI[U1234565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+	@Test(expected = IllegalArgumentException.class)
+    public void testCrearContenedorConIdentificacionNumerosNoValidosDevuelveError() {
+        new Contenedor("BICU12:4565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+	@Test(expected = IllegalArgumentException.class)
+    public void testCrearContenedorConIdentificacionNumerosNoValidos2DevuelveError() {
+        new Contenedor("BICU1/34565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+	@Test(expected = IllegalArgumentException.class)
+    public void testCrearContenedorConIdentificacionMasCaracteresDevuelveError() {
+        new Contenedor("BICUB234565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+    public void testCrearContenedorConIdentificacionValida() {
+        new Contenedor("ABCD1231323", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+    public void testCrearContenedorConIdentificacionValida2() {
+        new Contenedor("BICU1234565", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+	
+    public void testCrearContenedorConIdentificacionValida3() {
+        new Contenedor("BICU1234570", 5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testConstructorDevuelveErrorConPesoNegativoPeso() {
+    public void testConstructorDevuelveErrorConPesoNegativo() {
         new Contenedor("BICU1234565", -5000, 10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorDevuelveErrorConPesoMaximoNegativo() {
+        new Contenedor("BICU1234565", 5000, -10000, 20, Contenedor.ESTADOS.TRANSITO, true);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorDevuelveErrorConVolumenNegativo() {
+        new Contenedor("BICU1234565", 5000, 10000, -20, Contenedor.ESTADOS.TRANSITO, true);
     }
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -112,6 +169,22 @@ public class ContenedorTest {
         contenedor.setTecho(false);
         assertFalse(contenedor.getTecho());
     }
+    
+    @Test
+    public void testGetPesoKg() {
+    	assertEquals(contenedor.getPesoKg(), 5000, 0.001);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPesoKgDaErrorConNegativo() {
+        contenedor.setPesoKg(-50);
+    }
+    
+    @Test
+    public void testSetPesoKgFunciona() {
+        contenedor.setPesoKg(50);
+        assertEquals(contenedor.getPesoKg(), 50, 0.001);
+    }
 	
 	@Test
 	public void testCopiarContenedorFunciona() {
@@ -163,6 +236,53 @@ public class ContenedorTest {
     }
     
     @Test
+    public void testEqualsObjetoDiferenteLongitudTrayectos() {
+    	Muelle muelleOrigen = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+    	Muelle muelleDestino = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+        Puerto puertoOrigen = new Puerto("AA-AAA");
+        puertoOrigen.agregarMuelle(muelleOrigen);
+        Puerto puertoDestino = new Puerto("AA-AAB");
+        puertoDestino.agregarMuelle(muelleDestino);
+        LocalDate fechaInicio = LocalDate.of(2024, 11, 1);
+        LocalDate fechaFin = LocalDate.of(2024, 11, 10);
+        Trayecto trayecto = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, 100, 100);
+    	
+    	contenedor.agregarTrayecto(trayecto);
+    	
+        Contenedor c = new Contenedor("BICU1234565", 5000, 10000, 20, Contenedor.ESTADOS.RECOGIDA, false);
+
+        assertFalse(contenedor.equals(c));
+    }
+    
+    @Test
+    public void testEqualsObjetoDiferentesTrayectos() {
+    	Muelle muelleOrigen = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+    	Muelle muelleDestino = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+        Puerto puertoOrigen = new Puerto("AA-AAA");
+        puertoOrigen.agregarMuelle(muelleOrigen);
+        Puerto puertoDestino = new Puerto("AA-AAB");
+        puertoDestino.agregarMuelle(muelleDestino);
+        LocalDate fechaInicio = LocalDate.of(2024, 11, 1);
+        LocalDate fechaFin = LocalDate.of(2024, 11, 10);
+        Trayecto trayecto = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, 100, 100);
+    	
+    	contenedor.agregarTrayecto(trayecto);
+    	
+        Contenedor c = new Contenedor("BICU1234565", 5000, 10000, 20, Contenedor.ESTADOS.RECOGIDA, true);
+        Trayecto t = new Trayecto(trayecto);
+        t.setCostePorDia(10);
+        
+        c.agregarTrayecto(t);
+
+        assertFalse(contenedor.equals(c));
+    }
+    
+    @Test
+    public void testEqualsObjetoNull() {
+        assertFalse(contenedor.equals(null));
+    }
+    
+    @Test
     public void testGetTrayectosInicialmenteVacio() {
         assertEquals(0, contenedor.getTrayectos().length);
     }
@@ -185,5 +305,26 @@ public class ContenedorTest {
         assertEquals(trayecto, contenedor.getTrayectos()[0]);
     }
     
-	
+	@Test
+	public void testGetPrecioAPartirDeTrayectos() {
+		Muelle muelleOrigen = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+    	Muelle muelleDestino = new Muelle(50, new GPSCoordinate(10, 10), true, 10, 10);
+        Puerto puertoOrigen = new Puerto("AA-AAA");
+        puertoOrigen.agregarMuelle(muelleOrigen);
+        Puerto puertoDestino = new Puerto("AA-AAB");
+        puertoDestino.agregarMuelle(muelleDestino);
+        LocalDate fechaInicio = LocalDate.of(2024, 11, 1);
+        LocalDate fechaFin = LocalDate.of(2024, 11, 10);
+        Trayecto trayecto = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, 100, 100);
+    	
+    	contenedor.agregarTrayecto(trayecto);
+        
+    	double precio = 0;
+		
+		for (Trayecto t: contenedor.getTrayectos()) {
+			precio += t.getCosteTrayecto();
+		}
+		
+		assertEquals(contenedor.getPrecioAPartirDeTrayectos(), precio, 0.001);
+	}
 }

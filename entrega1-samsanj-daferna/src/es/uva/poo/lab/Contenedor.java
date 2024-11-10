@@ -98,6 +98,12 @@ public class Contenedor {
 	public double getPesoKg() {
 		return pesoKg;
 	}
+	public void setPesoKg(double pesoKg) {
+		if (pesoKg <= 0)
+			throw new IllegalArgumentException("El peso introducido debe ser positivo");
+		
+		this.pesoKg = pesoKg;
+	}
 	
 	public ESTADOS getEstado() {
 		return estado;
@@ -167,7 +173,7 @@ public class Contenedor {
 	// TODO: Añadir método que calcule el precio del transporte total de un
 	// contenedor a partir de sus trayectos
 	// TODO: Ni idea de si es lo que pide
-	public double getPrecioAPartirDeTrayectos(Trayecto[] trayectos) {
+	public double getPrecioAPartirDeTrayectos() {
 		double precio = 0;
 		
 		for (Trayecto trayecto: trayectos) {
@@ -194,7 +200,7 @@ public class Contenedor {
 		if (!(contenedor instanceof Contenedor)) return false;
 		
 		Contenedor c = (Contenedor) contenedor;
-
+		
 		return (
 			codigoIdentificador.equals(c.getCodigoIdentificador()) &&
 			pesoKg == c.getPesoKg() &&
