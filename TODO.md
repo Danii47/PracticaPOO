@@ -49,7 +49,7 @@ de él).
 - [x] Obtener el volumen del contenedor en pies cúbicos
 - [x] Obtener el peso del contenedor en Kilogramos
 - [x] Obtener el peso del contenedor en Libras
-- [ ] Obtener el precio del transporte total de un contenedor a partir de sus trayectos.
+- [x] Obtener el precio del transporte total de un contenedor a partir de sus trayectos.
 
 
 ## Clase trayecto

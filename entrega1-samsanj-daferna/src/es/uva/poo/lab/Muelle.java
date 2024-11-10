@@ -18,12 +18,15 @@ public class Muelle {
 		
 		if (localizacion == null)
 			throw new IllegalArgumentException("La localización no puede ser null.");
-		
+					
 		if (numeroPlazas <= 0)
 			throw new IllegalArgumentException("Las plazas deben ser positivas.");
 		
 		if (maximoContenedoresApilables <= 0)
 			throw new IllegalArgumentException("El número de contenedores máximos apilados debe ser mayor que 0.");
+
+
+
 		
 		this.codigoIdentificacion = codigoIdentificacion;
 		this.localizacion = new GPSCoordinate(localizacion.getLatitudeGMS(), localizacion.getLongitudeGMS());
@@ -83,18 +86,6 @@ public class Muelle {
 		return plazasVacias;
 	}
 	
-	public Contenedor[] getContenedoresEnPlaza(int plaza) {
-		if (plaza < 0 || plaza > getNumeroPlazas())
-			throw new IllegalArgumentException("Número de plaza invalido.");
-		
-		Contenedor[] contenedores = new Contenedor[plazas[plaza].length];
-		
-		for (int i = 0; i < contenedores.length; i++) {
-			contenedores[i] = plazas[plaza][i] == null ? null : new Contenedor(plazas[plaza][i]);
-		}
-		
-		return contenedores;
-	}
 	
 	public int getPlazasLlenas() {
 		int plazasLlenas = 0;
@@ -124,6 +115,19 @@ public class Muelle {
 		return getNumeroPlazas() - (getPlazasVacias() + getPlazasLlenas());
 	}
 	
+	public Contenedor[] getContenedoresEnPlaza(int plaza) {
+		if (plaza < 0 || plaza > getNumeroPlazas())
+			throw new IllegalArgumentException("Número de plaza invalido.");
+		
+		Contenedor[] contenedores = new Contenedor[plazas[plaza].length];
+		
+		for (int i = 0; i < contenedores.length; i++) {
+			contenedores[i] = plazas[plaza][i] == null ? null : new Contenedor(plazas[plaza][i]);
+		}
+		
+		return contenedores;
+	}
+
 	// TODO: Hacer la documentacion de que devuelve error al no encontrarlo
 	public int getPlazaContenedor(String codigoIdentificador) {
 		if (codigoIdentificador == null)
@@ -183,12 +187,12 @@ public class Muelle {
 		return plaza < 0 || plaza > getNumeroPlazas() - 1;
 	}
 	
-	public void asignarContenedor(Contenedor contenedor, int plaza) {
+	public void apilarContenedor(Contenedor contenedor, int plaza) {
 		if (!plazaValida(plaza))
 			throw new IllegalArgumentException("Plaza no válida.");
 		
 		if (!posibleApilar(contenedor, plaza)) 
-			throw new IllegalArgumentException("No es posible asignar el contenedor a la plaza.");
+			throw new IllegalArgumentException("No es posible apilar el contenedor a la plaza.");
 		
 		int i = 0;
 		boolean colocado = false;
