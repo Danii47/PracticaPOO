@@ -9,8 +9,11 @@ public class Puerto {
 	private String codigoIdentificacion;
 	private ArrayList<Muelle> muelles;
 	
-	public Puerto(String codigoIdentificacion, Muelle[] muelles) {
+	public Puerto(String codigoIdentificacion, Muelle[] muelles) {		
 		comprobarcodigoIdentificacion(codigoIdentificacion);
+		
+		if (muelles == null)
+			throw new IllegalArgumentException("El array de muelles no puede ser null.");
 		
 		this.codigoIdentificacion = codigoIdentificacion;
 		this.muelles = new ArrayList<Muelle>();
@@ -28,6 +31,9 @@ public class Puerto {
 	}
 	
 	public Puerto(Puerto puerto) {
+		if (puerto == null)
+			throw new IllegalArgumentException("El puerto introducido no puede ser null.");
+		
 		this.codigoIdentificacion = puerto.getCodigoIdentificacion();
 		this.muelles = new ArrayList<Muelle>(Arrays.asList(puerto.getMuelles()));
 	}
@@ -59,7 +65,6 @@ public class Puerto {
 	
 	public Muelle[] getMuelles() {
 		Muelle[] muelles = new Muelle[this.muelles.size()];
-		
 		for (int i = 0; i < muelles.length; i++) {
 			muelles[i] = new Muelle(this.muelles.get(i));
 		}
@@ -72,6 +77,9 @@ public class Puerto {
 	}
 	
 	public Muelle getMuellePorIndice(int indice) {
+		if (indice < 0 || indice >= getNumeroMuelles())
+			throw new IllegalArgumentException("El número de indice no es válido.");
+		
 		return new Muelle(muelles.get(indice));
 	}
 	
@@ -122,7 +130,7 @@ public class Puerto {
 	}
 	
 	public Muelle[] getMuellesOperativos() {
-		ArrayList<Muelle> muellesOperativosList = new ArrayList<>();
+		ArrayList<Muelle> muellesOperativosList = new ArrayList<Muelle>();
 
 	    for (Muelle muelle: muelles) {
 	        if (muelle.getOperativo()) {
@@ -145,7 +153,6 @@ public class Puerto {
 	    return muellesConEspacio.toArray(new Muelle[0]);
 	}
 	
-	// TODO: DISTANCIA EN KM
 	public Muelle[] getMuellesCercanos(GPSCoordinate localizacion, int distancia) {
 		if (localizacion == null)
 			throw new IllegalArgumentException("La localizacion no puede ser null.");
