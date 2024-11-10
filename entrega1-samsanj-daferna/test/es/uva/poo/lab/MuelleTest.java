@@ -145,7 +145,13 @@ public class MuelleTest {
 		assertEquals(0, muelle.getPlazasLlenas());
 	}
 
-	
+
+	// TODO REVISAR Y CONTINUAR DESDE AQUI
+	@Test
+	public void testGetContenedoresEnPlaza() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		assertArrayEquals(new Contenedor[1], muelle.getContenedoresEnPlaza(0));
+	}
 
 	@Test
 	public void testGetPlazasLlenas2MaximoApilable() {
