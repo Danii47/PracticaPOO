@@ -27,7 +27,7 @@ public class TrayectoTest {
         puertoDestino = new Puerto("AA-AAB");
         fechaInicio = LocalDate.of(2024, 11, 1);
         fechaFin = LocalDate.of(2024, 11, 10);
-        trayecto = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin);
+        trayecto = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, 100, 100);
     }
 	
 	@Test(expected = IllegalArgumentException.class)
