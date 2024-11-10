@@ -105,6 +105,15 @@ public class Contenedor {
 	public double getPesoLibras() {
 		return getPesoKg() * CONVERSION_LIBRAS;
 	}
+	
+	public Trayecto[] getTrayectos() {
+		Trayecto[] trayectosArray = new Trayecto[trayectos.size()];
+		for (int i = 0; i < trayectos.size(); i++) {
+			trayectosArray[i] = new Trayecto(trayectos.get(i));
+		}
+		
+		return trayectosArray;
+	}
 
 	private static void comprobarCodigoIdentificador(String codigoIdentificador) {
 		if (codigoIdentificador == null)
@@ -161,5 +170,29 @@ public class Contenedor {
 		}
 		
 		return precio;
+	}
+	
+	private boolean comprobarTrayectosIguales(Contenedor contenedor) {
+		if (getTrayectos().length != contenedor.getTrayectos().length) return false;
+		
+		
+		return true;
+	}
+	
+	@Override
+	public boolean equals(Object contenedor) {
+		if (!(contenedor instanceof Contenedor)) return false;
+		
+		Contenedor c = (Contenedor) contenedor;
+
+		return (
+			codigoIdentificador.equals(c.getCodigoIdentificador()) &&
+			pesoKg == c.getPesoKg() &&
+			cargaUtilMaximaKg == c.getCargaUtilMaximaKg() &&
+			volumenMetrosCubicos == c.getVolumenMetrosCubicos() &&
+			estado == c.getEstado() &&
+			techo == c.getTecho() &&
+			comprobarTrayectosIguales(c)			
+		);
 	}
 }
