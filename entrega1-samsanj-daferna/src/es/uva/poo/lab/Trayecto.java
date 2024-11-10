@@ -5,17 +5,22 @@ import java.time.LocalDate;
 public class Trayecto {
 	// TODO: Usar Date o Timestamp?
 	// https://mkyong.com/java/how-to-get-current-timestamps-in-java/
+
 	public static final double CONVERSION_MILLAS_NAUTICAS = 0.539957;
+	
 	
 	private Muelle muelleOrigen;
 	private Puerto puertoOrigen;
 	private LocalDate fechaInicio;
-
+	
 	private Muelle muelleDestino;
 	private Puerto puertoDestino;
 	private LocalDate fechaFin;
+	
+	private double costePorDia;
+	private double costePorMillaNautica;
 
-	public Trayecto(Muelle muelleOrigen, Puerto puertoOrigen, LocalDate fechaInicio, Muelle muelleDestino, Puerto puertoDestino, LocalDate fechaFin) {
+	public Trayecto(Muelle muelleOrigen, Puerto puertoOrigen, LocalDate fechaInicio, Muelle muelleDestino, Puerto puertoDestino, LocalDate fechaFin , double costePorDia, double costePorMillaNautica) {
 		// TODO: Habría que comprobar que el muelleOrigen pertenece al puertoOrigen e igual con los destino
 		
 		if (muelleOrigen == null)
@@ -39,6 +44,13 @@ public class Trayecto {
 		if (fechaInicio.isAfter(fechaFin))
 			throw new IllegalArgumentException("La fecha fin no puede ser antes que la fecha inicio.");
 		
+		if (costePorDia < 0)
+			throw new IllegalArgumentException("El coste por día no puede ser negativo.");
+
+		if (costePorMillaNautica < 0)
+			throw new IllegalArgumentException("El coste por milla naútica no puede ser negativo.");
+
+		
 		this.muelleOrigen = new Muelle(muelleOrigen);
 		this.puertoOrigen = new Puerto(puertoOrigen);
 		this.fechaInicio = fechaInicio;
@@ -46,6 +58,10 @@ public class Trayecto {
 		this.muelleDestino = new Muelle(muelleDestino);
 		this.puertoDestino = new Puerto(puertoDestino);
 		this.fechaFin = fechaFin;
+
+		this.costePorDia = costePorDia;
+		this.costePorMillaNautica = costePorMillaNautica;
+		
 	}
 	
 	public LocalDate getFechaInicio() {
@@ -78,20 +94,31 @@ public class Trayecto {
 		return muelleOrigen.getLocalizacion().getDistanceTo(muelleDestino.getLocalizacion());
 	}
 	
+	public void setCostePorDia(double costePorDia) {
+		if (costePorDia < 0)
+			throw new IllegalArgumentException("El coste por día no puede ser negativo.");
+		this.costePorDia = costePorDia;
+	}	
+	public double getCostePorDia() {
+		return costePorDia;
+	}
+	public void setCostePorMillaNautica(double costePorMillaNautica) {
+		if (costePorMillaNautica < 0)
+			throw new IllegalArgumentException("El coste por milla naútica no puede ser negativo.");
+		this.costePorMillaNautica = costePorMillaNautica;
+	}
+	public double getCostePorMillaNautica() {
+		return costePorMillaNautica;
+	}
 	
 	// A partir del coste por día de trayecto dado y el coste por milla marina, obtener el precio de un trayecto en euros.
-	public double getCosteTrayecto(double costePorDia, double costePorMillaNautica) {
-		if (costePorDia <= 0) 
-			throw new IllegalArgumentException("El coste por día debe ser superior a 0.");
-		
-		if (costePorMillaNautica <= 0)
-			throw new IllegalArgumentException("El coste por milla naútica debe ser superior a 0.");
+	public double getCosteTrayecto() {
 		
 		int dias = getDuracionDias();
 		double distanciaMillasNauticas = getDistanciaMillasNauticas();
 		
 		// TODO: Es esta la operacion?
-		return (dias * costePorDia) + (distanciaMillasNauticas * costePorMillaNautica);
+		return (dias * getCostePorDia()) + (distanciaMillasNauticas * getCostePorMillaNautica());
 	}
 	
 	public double getDistanciaMillasNauticas() {

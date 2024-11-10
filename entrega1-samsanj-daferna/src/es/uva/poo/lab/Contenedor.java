@@ -150,11 +150,11 @@ public class Contenedor {
 	// TODO: Añadir método que calcule el precio del transporte total de un
 	// contenedor a partir de sus trayectos
 	// TODO: Ni idea de si es lo que pide
-	public double getPrecioAPartirDeTrayectos(Trayecto[] trayectos, double costePorDia, double costePorMillaNautica) {
+	public double getPrecioAPartirDeTrayectos(Trayecto[] trayectos) {
 		double precio = 0;
 		
 		for (Trayecto trayecto: trayectos) {
-			precio += trayecto.getCosteTrayecto(costePorDia, costePorMillaNautica);
+			precio += trayecto.getCosteTrayecto();
 		}
 		
 		return precio;
