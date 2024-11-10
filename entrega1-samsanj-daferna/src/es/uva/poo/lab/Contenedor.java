@@ -54,7 +54,6 @@ public class Contenedor {
 		this.techo = contenedor.getTecho();
 	}
 
-	// TODO: Deberiamos crear todos los getters y setters?
 	public void setEnRecogida() {
 		estado = ESTADOS.RECOGIDA;
 	}
@@ -113,6 +112,10 @@ public class Contenedor {
 		}
 		
 		return trayectosArray;
+	}
+	
+	public void agregarTrayecto(Trayecto trayecto) {
+		trayectos.add(new Trayecto(trayecto));
 	}
 
 	private static void comprobarCodigoIdentificador(String codigoIdentificador) {
@@ -175,6 +178,11 @@ public class Contenedor {
 	private boolean comprobarTrayectosIguales(Contenedor contenedor) {
 		if (getTrayectos().length != contenedor.getTrayectos().length) return false;
 		
+		Trayecto[] contenedorOtroTrayectos = contenedor.getTrayectos();
+		
+		for (int i = 0; i < getTrayectos().length; i++) {
+			if (!getTrayectos()[i].equals(contenedorOtroTrayectos[i])) return false;
+		}
 		
 		return true;
 	}
@@ -192,7 +200,7 @@ public class Contenedor {
 			volumenMetrosCubicos == c.getVolumenMetrosCubicos() &&
 			estado == c.getEstado() &&
 			techo == c.getTecho() &&
-			comprobarTrayectosIguales(c)			
+			comprobarTrayectosIguales(c)	
 		);
 	}
 }
