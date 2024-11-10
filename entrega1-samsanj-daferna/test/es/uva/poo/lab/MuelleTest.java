@@ -410,6 +410,85 @@ public class MuelleTest {
 		assertTrue(muelle.comprobarCodigoYaExistente("BICU1234565"));
 	}
 
+	@Test
+	public void testEqualsMismoObjeto() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 3, 3);
+		Muelle muelle2 = new Muelle(10, new GPSCoordinate(0, 0), true, 3, 3);
+		Contenedor contenedor1 = new Contenedor("BICU1234565", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);
+		Contenedor contenedor2 = new Contenedor("BICU1234570", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);	
+		Contenedor contenedor3 = new Contenedor("CSQU3054383", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);
+		muelle.apilarContenedor(contenedor1, 0);
+		muelle.apilarContenedor(contenedor2, 1);
+		muelle.apilarContenedor(contenedor3, 1);
+		muelle2.apilarContenedor(contenedor1, 0);
+		muelle2.apilarContenedor(contenedor2, 1);
+		muelle2.apilarContenedor(contenedor3, 1);
+		assertTrue(muelle.equals(muelle2));
+	}
+
+	@Test
+	public void testEqualsObjetoNull() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		assertFalse(muelle.equals(null));
+	}
+
+	@Test
+	public void testEqualsObjetoDistintoTipo() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		assertFalse(muelle.equals(new GPSCoordinate(0, 0)));
+	}
+
+	@Test
+	public void testEqualsDistintoCodigoIdentificacion() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		Muelle muelle2 = new Muelle(11, new GPSCoordinate(0, 0), true, 1, 1);
+		assertFalse(muelle.equals(muelle2));
+	}
+
+	@Test
+	public void testEqualsDistintaLocalizacion() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		Muelle muelle2 = new Muelle(10, new GPSCoordinate(1, 1), true, 1, 1);
+		assertFalse(muelle.equals(muelle2));
+	}
+
+	@Test
+	public void testEqualsDistintoOperativo() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		Muelle muelle2 = new Muelle(10, new GPSCoordinate(0, 0), false, 1, 1);
+		assertFalse(muelle.equals(muelle2));
+	}
+
+	@Test
+	public void testEqualsDistintoNumeroPlazas() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		Muelle muelle2 = new Muelle(10, new GPSCoordinate(0, 0), true, 2, 1);
+		assertFalse(muelle.equals(muelle2));
+	}
+
+	@Test
+	public void testEqualsDistintoMaximoContenedoresApilables() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
+		Muelle muelle2 = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 2);
+		assertFalse(muelle.equals(muelle2));
+	}
+
+	@Test
+	public void testEqualsDistintosContenedores() {
+		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 3, 3);
+		Muelle muelle2 = new Muelle(10, new GPSCoordinate(0, 0), true, 3, 3);
+		Contenedor contenedor1 = new Contenedor("BICU1234565", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);
+		Contenedor contenedor2 = new Contenedor("BICU1234570", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);	
+		Contenedor contenedor3 = new Contenedor("CSQU3054383", 1, 1, 1, Contenedor.ESTADOS.RECOGIDA, true);
+		muelle.apilarContenedor(contenedor1, 0);
+		muelle.apilarContenedor(contenedor2, 1);
+		muelle.apilarContenedor(contenedor3, 1);
+		muelle2.apilarContenedor(contenedor1, 0);
+		muelle2.apilarContenedor(contenedor2, 2);
+		muelle2.apilarContenedor(contenedor3, 1);
+		assertFalse(muelle.equals(muelle2));
+	}
+
 	
 	
 
