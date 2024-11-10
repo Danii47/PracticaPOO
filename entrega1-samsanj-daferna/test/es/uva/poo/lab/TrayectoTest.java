@@ -35,9 +35,7 @@ public class TrayectoTest {
         trayecto = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
     }
 	
-    /**
-     * Prueba la construcción de un objeto Trayecto con parámetros válidos.
-     */
+
     @Test
     public void testConstructorValido() {
         assertEquals(muelleOrigen, trayecto.getMuelleOrigen());
@@ -50,57 +48,37 @@ public class TrayectoTest {
         assertEquals(costePorMillaNautica, trayecto.getCostePorMillaNautica(), 0.001);
     }
     
-    /**
-     * Prueba que al crear un Trayecto con muelle de origen nulo lanza IllegalArgumentException.
-     */
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConMuelleOrigenNull() {
 		new Trayecto(null, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con puerto de origen nulo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConPuertoOrigenNull() {
 		new Trayecto(muelleOrigen, null, fechaInicio, muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con fecha de inicio nula lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConFechaInicioNull() {
 		new Trayecto(muelleOrigen, puertoOrigen, null, muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con muelle de destino nulo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConMuelleDestinoNull() {
 		new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, null, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con puerto de destino nulo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConPuertoDestinoNull() {
 		new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, null, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con fecha de fin nula lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConFechaFinNull() {
 		new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, null, costePorDia, costePorMillaNautica);
 	}
 
-	/**
-	 * Prueba que al crear un Trayecto con fecha de inicio posterior a la fecha de fin lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConFechaInicioMasTardeQueFin() {
 		LocalDate fi = LocalDate.now();
@@ -109,45 +87,30 @@ public class TrayectoTest {
 		new Trayecto(muelleOrigen, puertoOrigen, fi, muelleDestino, puertoDestino, ff, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con coste por día negativo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConCostePorDiaNegativo() {
 		double costePorDia = -100;
 		new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con coste por milla náutica negativo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConCostePorMillaNegativo() {
 		double costePorMillaNautica = -50;
 		new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con un muelle de origen que no pertenece al puerto de origen lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConMuelleOrigenNoPerteneceAPuertoOrigen() {
 		Puerto po = new Puerto("BB-AAA");
 		new Trayecto(muelleOrigen, po, fechaInicio, muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con un muelle de destino que no pertenece al puerto de destino lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConMuelleDestinoNoPerteneceAPuertoDestino() {
 		Puerto pd = new Puerto("CC-AAA");
 		new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, pd, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con puerto de origen no operativo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConPuertoOrigenNoOperativoDaError() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -157,9 +120,6 @@ public class TrayectoTest {
 		new Trayecto(mo, po, fechaInicio, muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba que al crear un Trayecto con puerto de destino no operativo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCrearTrayectoConPuertoDestinoNoOperativoDaError() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -169,9 +129,6 @@ public class TrayectoTest {
 		new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, md, pd, fechaFin, costePorDia, costePorMillaNautica);
 	}
 	
-	/**
-	 * Prueba el constructor de copia de Trayecto.
-	 */
 	@Test
 	public void testCrearTrayectoConstructorCopia() {
 		Trayecto t = new Trayecto(trayecto);
@@ -179,59 +136,38 @@ public class TrayectoTest {
 		assertNotSame(trayecto, t);
 	}
 	
-	/**
-	 * Prueba la obtención del coste diario del Trayecto.
-	 */
 	@Test
 	public void testGetCostePorDia() {
 		assertEquals(100, trayecto.getCostePorDia(), 0.001);
 	}
 	
-	/**
-	 * Prueba que establecer un coste diario negativo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetCostePorDiaNegativoDaError() {
 		trayecto.setCostePorDia(-1);
 	}
 	
-	/**
-	 * Prueba el establecimiento de un coste diario válido para el Trayecto.
-	 */
 	@Test
 	public void testSetCostePorDiaFunciona() {
 		trayecto.setCostePorDia(1);
 		assertEquals(1, trayecto.getCostePorDia(), 0.001);
 	}
 	
-	/**
-	 * Prueba la obtención del coste por milla náutica.
-	 */
 	@Test
 	public void testGetCostePorMillaNautica() {
 		assertEquals(50, trayecto.getCostePorMillaNautica(), 0.001);
 	}
 	
-	/**
-	 * Prueba que establecer un coste por milla náutica negativo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetCostePorMillaNauticaNegativoDaError() {
 		trayecto.setCostePorMillaNautica(-1);
 	}
 	
-	/**
-	 * Prueba el establecimiento de un coste por milla náutica válido.
-	 */
 	@Test
 	public void testSetCostePorMillaNauticaFunciona() {
 		trayecto.setCostePorMillaNautica(1);
 		assertEquals(1, trayecto.getCostePorMillaNautica(), 0.001);
 	}
 	
-	/**
-	 * Prueba que establecer un muelle de origen que no pertenece al puerto de origen lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetMuelleOrigenNoPerteneceAlPuertoOrigenDaError() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -239,17 +175,11 @@ public class TrayectoTest {
 		trayecto.setMuelleOrigen(mo);
 	}
 	
-	/**
-	 * Prueba que establecer un muelle de origen nulo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetMuelleOrigenNullDaError() {
 		trayecto.setMuelleOrigen(null);
 	}
 	
-	/**
-	 * Prueba el establecimiento de un muelle de origen válido para el Trayecto.
-	 */
 	@Test
 	public void testSetMuelleOrigenFunciona() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -263,9 +193,6 @@ public class TrayectoTest {
 		assertNotSame(t.getMuelleOrigen(), mo);
 	}
 	
-	/**
-	 * Prueba que establecer un muelle de destino que no pertenece al puerto de destino lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetMuelleDestinoNoPerteneceAlPuertoDestinoDaError() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -273,17 +200,11 @@ public class TrayectoTest {
 		trayecto.setMuelleDestino(md);
 	}
 	
-	/**
-	 * Prueba que establecer un muelle de destino nulo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetMuelleDestinoNullDaError() {
 		trayecto.setMuelleDestino(null);
 	}
 	
-	/**
-	 * Prueba el establecimiento de un muelle de destino válido para el Trayecto.
-	 */
 	@Test
 	public void testSetMuelleDestinoFunciona() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -297,17 +218,11 @@ public class TrayectoTest {
 		assertNotSame(t.getMuelleDestino(), md);
 	}
 	
-	/**
-	 * Prueba que pasar una fecha nula para verificar si la fecha de fin es posterior lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testFechaFinSuperiorAOtraNull() {
 		trayecto.fechaFinSuperiorAOtra(null);
 	}
 	
-	/**
-	 * Prueba que verificar si la fecha de fin es posterior a otra fecha devuelve falso cuando no lo es.
-	 */
 	@Test
 	public void testFechaFinSuperiorAOtraFalso() {
 		LocalDate fi = LocalDate.now();
@@ -318,9 +233,6 @@ public class TrayectoTest {
 		assertFalse(t.fechaFinSuperiorAOtra(LocalDate.now()));
 	}
 	
-	/**
-	 * Prueba que verificar si la fecha de fin es posterior a otra fecha devuelve verdadero cuando lo es.
-	 */
 	@Test
 	public void testFechaFinSuperiorAOtraVerdadero() {
 		LocalDate ff = LocalDate.now();
@@ -330,9 +242,6 @@ public class TrayectoTest {
 		assertTrue(t.fechaFinSuperiorAOtra(LocalDate.of(2020, 1, 1)));
 	}
 	
-	/**
-	 * Prueba la obtención de la duración en días de un Trayecto que dura 0 días.
-	 */
 	@Test
 	public void testGetDuracionDias0() {
 		LocalDate fi = LocalDate.now();
@@ -343,9 +252,6 @@ public class TrayectoTest {
 		assertEquals(0, t.getDuracionDias());
 	}
 	 
-	/**
-	 * Prueba la obtención de la duración en días de un Trayecto que dura 10 días.
-	 */
 	@Test
 	public void testGetDuracion10Dias() {
 		LocalDate fi = LocalDate.of(2024, 1, 10);
@@ -356,25 +262,16 @@ public class TrayectoTest {
 		assertEquals(10, t.getDuracionDias());
 	}
 	
-	/**
-	 * Prueba la obtención de la distancia en kilómetros entre origen y destino.
-	 */
 	@Test
 	public void testGetDistanciaKM() {
 		assertEquals(1.807, trayecto.getDistanciaKM(), GPSCoordinate.PRECISION_IN_DISTANCE);
 	}
 
-	/**
-	 * Prueba la obtención de la distancia en millas náuticas entre origen y destino.
-	 */
 	@Test
 	public void testGetDistanciaMillasNauticas() {
 		assertEquals(trayecto.getDistanciaKM() * Trayecto.CONVERSION_MILLAS_NAUTICAS, trayecto.getDistanciaMillasNauticas(), GPSCoordinate.PRECISION_IN_DISTANCE);
 	}
 	
-	/**
-	 * Prueba el cálculo del coste total del Trayecto.
-	 */
 	@Test
 	public void testGetCosteTrayecto() {
 		double costeEsperado = (trayecto.getDuracionDias() * trayecto.getCostePorDia()) + (trayecto.getDistanciaMillasNauticas() * trayecto.getCostePorMillaNautica());
@@ -382,9 +279,6 @@ public class TrayectoTest {
 		assertEquals(costeEsperado, trayecto.getCosteTrayecto(), 0.001);
 	}
 	
-	/**
-	 * Prueba el cálculo del coste de un Trayecto con 0 días.
-	 */
 	@Test
 	public void testGetCosteTrayectoCon0Dias() {
 		LocalDate fi = LocalDate.now();
@@ -397,9 +291,6 @@ public class TrayectoTest {
 		assertEquals(costeEsperado, t.getCosteTrayecto(), 0.001);
 	}
 	 
-	/**
-	 * Prueba el cálculo del coste de un Trayecto con 0 millas náuticas.
-	 */
 	@Test
 	public void testGetCosteTrayectoCon0MillasNauticas() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -416,25 +307,16 @@ public class TrayectoTest {
 		assertEquals(costeEsperado, t.getCosteTrayecto(), 0.001);
 	}
 	 
-	/**
-	 * Prueba que establecer un puerto de origen nulo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetPuertoYMuelleOrigenPuertoOrigenNullDaError() {
 		trayecto.setPuertoYMuelleOrigen(null, muelleOrigen);
 	}
 	 
-	/**
-	 * Prueba que establecer un muelle de origen nulo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetPuertoYMuelleOrigenMuelleOrigenNullDaError() {
 		trayecto.setPuertoYMuelleOrigen(puertoOrigen, null);
 	}
 	
-	/**
-	 * Prueba que establece un muelle de origen que no pertenece al puerto de origen lanza IllegalArgumentException
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetPuertoYMuelleOrigenMuelleOrigenNoPerteneceAPuertoOrigenDaError() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -443,9 +325,6 @@ public class TrayectoTest {
 		trayecto.setPuertoYMuelleOrigen(puertoOrigen, mo);
 	}
 	 
-	/**
-	 * Prueba el establecimiento de un puerto y muelle de origen válidos.
-	 */
 	@Test
 	public void testSetPuertoYMuelleOrigenFunciona() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -459,25 +338,16 @@ public class TrayectoTest {
 		assertNotSame(trayecto.getMuelleOrigen(), mo);
 	}
 	
-	/**
-	 * Prueba que al establecer un puerto de destino nulo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetPuertoYMuelleDestinoPuertoDestinoNullDaError() {
 		trayecto.setPuertoYMuelleDestino(null, muelleDestino);
 	}
 	 
-	/**
-	 * Prueba que al establecer un muelle de destino nulo lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetPuertoYMuelleDestinoMuelleDestinoNullDaError() {
 		trayecto.setPuertoYMuelleDestino(puertoDestino, null);
 	}
 	
-	/**
-	 * Prueba que al establecer un muelle de destino que no pertenece al puerto de destino lanza IllegalArgumentException.
-	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetPuertoYMuelleDestinoMuelleDestinoNoPerteneceAPuertoDestinoDaError() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -486,9 +356,6 @@ public class TrayectoTest {
 		trayecto.setPuertoYMuelleDestino(puertoDestino, md);
 	}
 	
-	/**
-	 * Prueba el establecimiento de un puerto y un muelle de destino válidos.
-	 */
 	@Test
 	public void testSetPuertoYMuelleDestinoFunciona() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -502,9 +369,6 @@ public class TrayectoTest {
 		assertNotSame(trayecto.getMuelleDestino(), md);
 	}
 	
-	/**
-	 * Prueba la comparación de igualdad entre dos objetos Trayecto idénticos.
-	 */
 	@Test
 	public void testEqualsValido() {
 		Trayecto t = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
@@ -512,17 +376,11 @@ public class TrayectoTest {
 		assertTrue(t.equals(trayecto));
 	}
 	
-	/**
-	 * Prueba la comparación de igualdad entre un objeto Trayecto y sí mismo.
-	 */
 	@Test
 	public void testEqualsValidoConSiMismo() {	
 		assertTrue(trayecto.equals(trayecto));
 	}
 	
-	/**
-	 * Prueba la comparación de igualdad entre dos objetos Trayecto con muelles de origen distintos.
-	 */
 	@Test
 	public void testEqualsMuelleOrigenDistino() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -534,9 +392,6 @@ public class TrayectoTest {
 		assertFalse(t.equals(trayecto));
 	}
 	
-	/**
-	 * Prueba la comparación de igualdad entre dos objetos Trayecto con puertos de origen distintos.
-	 */
 	@Test
 	public void testEqualsPuertoOrigenDistinto() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -548,9 +403,6 @@ public class TrayectoTest {
 		assertFalse(t.equals(trayecto));
 	}
 
-	/**
-	 * Prueba la comparación de igualdad entre dos objetos Trayecto con fechas de inicio distintas.
-	 */
 	@Test
 	public void testEqualsFechaInicioDistinta() {
 		Trayecto t = new Trayecto(muelleOrigen, puertoOrigen, LocalDate.of(2001, 1, 1), muelleDestino, puertoDestino, fechaFin, costePorDia, costePorMillaNautica);
@@ -558,9 +410,6 @@ public class TrayectoTest {
 		assertFalse(t.equals(trayecto));
 	}
 
-	/**
-	 * Prueba la comparación de igualdad entre dos objetos Trayecto con muelles de destino distintos.
-	 */
 	@Test
 	public void testEqualsMuelleDestinoDistino() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -572,9 +421,6 @@ public class TrayectoTest {
 		assertFalse(t.equals(trayecto));
 	}
 
-	/**
-	 * Prueba la comparación de igualdad entre dos objetos Trayecto con puertos de destino distintos.
-	 */
 	@Test
 	public void testEqualsPuertoDestinoDistinto() {
 		GPSCoordinate gpsi = new GPSCoordinate(10, 10);
@@ -586,44 +432,29 @@ public class TrayectoTest {
 		assertFalse(t.equals(trayecto));
 	}
 
-	/**
-	 * Prueba la comparación de igualdad entre dos objetos Trayecto con fechas de fin distintas.
-	 */
 	@Test
 	public void testEqualsFechaFinDistinta() {
 		Trayecto t = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, LocalDate.of(2040, 1, 1), costePorDia, costePorMillaNautica);
 		assertFalse(t.equals(trayecto));
 	}
 
-	/**
-	 * Prueba la comparación de igualdad entre dos objetos Trayecto con costos diarios distintos.
-	 */
 	@Test
 	public void testEqualsCostePorDiaDistinto() {
 		Trayecto t = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, 1, costePorMillaNautica);
 		assertFalse(t.equals(trayecto));
 	}
 
-	/**
-	 * Prueba la comparación de igualdad entre dos objetos Trayecto con costos por milla náutica distintos.
-	 */
 	@Test
 	public void testEqualsCostePorMillaNautica() {
 		Trayecto t = new Trayecto(muelleOrigen, puertoOrigen, fechaInicio, muelleDestino, puertoDestino, fechaFin, costePorDia, 1);
 		assertFalse(t.equals(trayecto));
 	}
 
-	/**
-	 * Prueba la comparación de igualdad entre un objeto Trayecto y null.
-	 */
 	@Test
 	public void testEqualsConNullDaFalse() {
 		assertFalse(trayecto.equals(null));
 	}
 
-	/**
-	 * Prueba el método toString para verificar la representación en cadena de un Trayecto.
-	 */
 	@Test
 	public void testToString() {	
 		String esperado = (
