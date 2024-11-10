@@ -5,10 +5,24 @@ import java.util.Arrays;
 
 import es.uva.inf.poo.maps.GPSCoordinate;
 
+/** 
+ * @author daferna & samsanj
+ * 
+ * Clase que representa un puerto con un código de identificación y una lista de muelles.
+ * 
+ */
 public class Puerto {
 	private String codigoIdentificacion;
 	private ArrayList<Muelle> muelles;
 	
+	/**
+	 * Constructor de la clase Puerto.
+	 * 
+	 * @param codigoIdentificacion Código de identificación del puerto con letras mayúsculas con el nombre del país, un guión y finalmente tres letras mayúsculas con el código de la localidad .
+	 * @param muelles Array de muelles que pertenecen al puerto.
+	 * 
+	 * @throws IllegalArgumentException Si el código de identificación es null. Si el código de identificación no tiene 6 cifras. Si el código de identificación no tiene dos mayúsculas en los dos primeros digitos. Si el código de identificación no tiene un guión en el tercer digito. Si el código de identificación no tiene tres mayúsculas en los tres últimos digitos.
+   */
 	public Puerto(String codigoIdentificacion, Muelle[] muelles) {		
 		comprobarcodigoIdentificacion(codigoIdentificacion);
 		
@@ -23,6 +37,14 @@ public class Puerto {
 		}
 	}
 	
+	/**
+	 * Constructor de la clase Puerto.
+	 * 
+	 * @param codigoIdentificacion Código de identificación del puerto con letras mayúsculas con el nombre del país, un guión y finalmente tres letras mayúsculas con el código de la localidad .
+	 * 
+	 * @throws IllegalArgumentException Si el código de identificación no tiene la longitud adecuada.
+	 * @throws IllegalArgumentException Si el código de identificación no tiene el formato adecuado.
+	 */
 	public Puerto(String codigoIdentificacion) {
 		comprobarcodigoIdentificacion(codigoIdentificacion);
 		
@@ -30,6 +52,13 @@ public class Puerto {
 		this.muelles = new ArrayList<Muelle>();
 	}
 	
+	/**
+	 * Constructor de copia de la clase Puerto.
+	 * 
+	 * @param puerto Puerto a copiar.
+	 * 
+	 * @throws IllegalArgumentException Si el puerto introducido es null.
+	 */
 	public Puerto(Puerto puerto) {
 		if (puerto == null)
 			throw new IllegalArgumentException("El puerto introducido no puede ser null.");
@@ -38,6 +67,13 @@ public class Puerto {
 		this.muelles = new ArrayList<Muelle>(Arrays.asList(puerto.getMuelles()));
 	}
 	
+	/**
+	 * Método que comprueba si el código de identificación tiene el formato adecuado.
+	 * 
+	 * @param codigoIdentificacion Código de identificación a comprobar.
+	 * 
+	 * @throws IllegalArgumentException Si el código de identificación es null. Si el código de identificación no tiene 6 cifras. Si el código de identificación no tiene dos mayúsculas en los dos primeros digitos. Si el código de identificación no tiene un guión en el tercer digito. Si el código de identificación no tiene tres mayúsculas en los tres últimos digitos.
+	 */
 	private void comprobarcodigoIdentificacion(String codigoIdentificacion) {
 		if (codigoIdentificacion == null)
 			throw new IllegalArgumentException("El codigo de identificación no puede ser null.");
@@ -59,10 +95,20 @@ public class Puerto {
 		}
 	}
 	
+	/**
+	 * Método que devuelve el código de identificación del puerto.
+	 * 
+	 * @return Código de identificación del puerto.
+	 */
 	public String getCodigoIdentificacion() {
 		return codigoIdentificacion;
 	}
 	
+	/**
+	 * Método que devuelve un array con los muelles del puerto.
+	 * 
+	 * @return Array con los muelles del puerto.
+	 */
 	public Muelle[] getMuelles() {
 		Muelle[] muelles = new Muelle[this.muelles.size()];
 		for (int i = 0; i < muelles.length; i++) {
@@ -72,10 +118,24 @@ public class Puerto {
 		return muelles;
 	}
 	
+	/**
+	 * Método que devuelve el número de muelles del puerto.
+	 * 
+	 * @return Número de muelles del puerto.
+	 */
 	public int getNumeroMuelles() {
 		return muelles.size();
 	}
 	
+	/**
+	 * Método que devuelve un muelle del puerto por su código de índice.
+	 * 
+	 * @param codigoIdentificacion Índice del muelle.
+	 * 
+	 * @return Muelle con el índice especificado.
+	 * 
+	 * @throws IllegalArgumentException Si el índice es negativo o mayor o igual que el número de muelles.
+	 */
 	public Muelle getMuellePorIndice(int indice) {
 		if (indice < 0 || indice >= getNumeroMuelles())
 			throw new IllegalArgumentException("El número de indice no es válido.");
@@ -83,6 +143,11 @@ public class Puerto {
 		return new Muelle(muelles.get(indice));
 	}
 	
+	/**
+	 * Método que devuelve si el puerto está operativo en función de si todos sus muelles están operativos.
+	 * 
+	 * @return True si el puerto está operativo, false en caso contrario.
+	 */
 	public boolean getOperativo() {
 		
 		for (int i = 0; i < getNumeroMuelles(); i++) {
@@ -93,6 +158,13 @@ public class Puerto {
 		return false;
 	}
 	
+	/**
+	 * Método que añade un muelle al puerto si se puede.
+	 * 
+	 * @param muelle Muelle a añadir.
+	 * 
+	 * @throws IllegalArgumentException Si el muelle es null. Si ya existe un muelle con el mismo código de identificación.
+	 */
 	public void agregarMuelle(Muelle muelle) {
 		if (muelle == null)
 			throw new IllegalArgumentException("El muelle no puede ser null.");
@@ -105,6 +177,13 @@ public class Puerto {
 		muelles.add(new Muelle(muelle));
 	}
 	
+	/**
+	 * Método que elimina un muelle del puerto a partir de un código de identificación.
+	 * 
+	 * @param codigoIdentificacion Código de identificación del muelle a eliminar.
+	 * 
+	 * @throws IllegalArgumentException Si el código de identificación no es un número de dos cifras. Si no se encuentra un muelle con el código de identificación especificado.
+	 */
 	public void eliminarMuelle(int codigoIdentificacion) {
 		if (codigoIdentificacion < 10 || codigoIdentificacion > 99)
 			throw new IllegalArgumentException("El código de identificación debe ser un número de dos digitos.");
@@ -119,7 +198,11 @@ public class Puerto {
 		throw new IllegalArgumentException("No se encontró un muelle con el código de identificación especificado.");
 	}
 	
-	
+	/**
+	 * Método que devuelve si el puerto está completo en función de si todos sus muelles están llenos.
+	 * 
+	 * @return True si el puerto está completo, false en caso contrario.
+	 */
 	public boolean getCompleto() {
 		for (Muelle muelle: muelles) {
 			if (muelle.getPlazasLlenas() != muelle.getNumeroPlazas())
@@ -129,6 +212,11 @@ public class Puerto {
 		return true;
 	}
 	
+	/**
+	 * Método que devuelve un array con los muelles operativos del puerto.
+	 * 
+	 * @return Array con los muelles operativos del puerto.
+	 */
 	public Muelle[] getMuellesOperativos() {
 		ArrayList<Muelle> muellesOperativosList = new ArrayList<Muelle>();
 
@@ -141,6 +229,11 @@ public class Puerto {
 	    return muellesOperativosList.toArray(new Muelle[0]);
 	}
 	
+	/**
+	 * Método que devuelve un array con los muelles con espacio del puerto.
+	 * 
+	 * @return Array con los muelles con espacio del puerto.
+	 */
 	public Muelle[] getMuellesConEspacio() {
 		ArrayList<Muelle> muellesConEspacio = new ArrayList<>();
 
@@ -153,6 +246,14 @@ public class Puerto {
 	    return muellesConEspacio.toArray(new Muelle[0]);
 	}
 	
+	/**
+	 * Método que devuelve un array con los muelles cercanos a una localización en función de una distancia.
+	 * 
+	 * @param localizacion Localización a la que se comparan los muelles.
+	 * @param distancia Distancia máxima a la que se encuentran los muelles.
+	 * 
+	 * @return Array con los muelles cercanos a la localización.
+	 */
 	public Muelle[] getMuellesCercanos(GPSCoordinate localizacion, double distancia) {
 		if (localizacion == null)
 			throw new IllegalArgumentException("La localizacion no puede ser null.");
@@ -168,6 +269,13 @@ public class Puerto {
 	    return muellesCercanos.toArray(new Muelle[0]);
 	}
 	
+	/**
+	 * Método que devuelve si un muelle pertenece al puerto.
+	 * 
+	 * @param muelle Muelle a comprobar.
+	 * 
+	 * @return True si el muelle pertenece al puerto, false en caso contrario.
+	 */
 	public boolean muellePerteneceAlPuerto(Muelle muelle) {
 		if (muelle == null)
 			throw new IllegalArgumentException("El muelle introducido no puede ser null.");
@@ -179,6 +287,13 @@ public class Puerto {
 		return false;
 	}
 	
+	/**
+	 * Método que comprueba si los muelles de dos puertos son iguales.
+	 * 
+	 * @param puerto Puerto a comparar.
+	 * 
+	 * @return True si los muelles de los dos puertos son iguales, false en caso contrario.
+	 */
 	private boolean comprobarMuellesIguales(Puerto puerto) {
 		if (getMuelles().length != puerto.getMuelles().length) return false;
 		Muelle[] puertoOtroMuelles = puerto.getMuelles();
@@ -190,6 +305,13 @@ public class Puerto {
 		return true;
 	}
 	
+	/**
+	 * Método que devuelve si dos puertos son iguales.
+	 * 
+	 * @param puerto Puerto a comparar.
+	 * 
+	 * @return True si los puertos son iguales, false en caso contrario.
+	 */
 	@Override
 	public boolean equals(Object puerto) {
 		if (!(puerto instanceof Puerto)) return false;

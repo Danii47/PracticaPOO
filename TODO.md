@@ -2,17 +2,17 @@
 
 
 - [x] **Clase Puerto**
-- [ ] **Clase PuertoTest**
+- [x] **Clase PuertoTest**
 - [ ] **Hacer JavaDoc Puerto**
 - [x] **Clase Muelle**
-- [ ] **Clase MuelleTest**
-- [ ] **Hacer JavaDoc Muelle**
-- [ ] **Clase Contenedor**
-- [ ] **Clase ContenedorTest**
-- [ ] **Hacer JavaDoc Contenedor**
+- [x] **Clase MuelleTest**
+- [x] **Hacer JavaDoc Muelle**
+- [x] **Clase Contenedor**
+- [x] **Clase ContenedorTest**
+- [x] **Hacer JavaDoc Contenedor**
 - [x] **Clase Trayecto**
-- [ ] **Clase TrayectoTest**
-- [ ] **Hacer JavaDoc Trayecto**
+- [x] **Clase TrayectoTest**
+- [x] **Hacer JavaDoc Trayecto**
 
 
 ## Clase puerto
