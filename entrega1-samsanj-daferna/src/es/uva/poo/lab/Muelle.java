@@ -107,7 +107,7 @@ public class Muelle {
 	}
   // TODO CONTINUAR DESDE AQUI
 	public Contenedor[] getContenedoresEnPlaza(int plaza) {
-		if (plaza < 0 || plaza > getNumeroPlazas())
+		if (!plazaValida(plaza))
 			throw new IllegalArgumentException("Número de plaza invalido.");
 
 		Contenedor[] contenedores = new Contenedor[plazas[plaza].length];
@@ -156,7 +156,7 @@ public class Muelle {
 
 		for (int i = 0; i < getNumeroPlazas(); i++) {
 			for (int j = 0; j < getMaximoContenedoresApilables(); j++) {
-				if (plazas[i][j].getCodigoIdentificador().equals(codigoIdentificador))
+				if (plazas[i][j] != null && plazas[i][j].getCodigoIdentificador().equals(codigoIdentificador))
 					return i;
 			}
 		}
@@ -170,7 +170,7 @@ public class Muelle {
 
 		for (int i = 0; i < getNumeroPlazas(); i++) {
 			for (int j = 0; j < getMaximoContenedoresApilables(); j++) {
-				if (plazas[i][j].getCodigoIdentificador().equals(codigoIdentificador))
+				if (plazas[i][j]!=null && plazas[i][j].getCodigoIdentificador().equals(codigoIdentificador))
 					return j;
 			}
 		}
@@ -181,6 +181,12 @@ public class Muelle {
 	public boolean posibleApilar(Contenedor contenedor, int plaza) {
 		if (contenedor == null)
 			throw new IllegalArgumentException("El contenedor a consultar no puede ser null.");
+
+		if (!plazaValida(plaza))
+			throw new IllegalArgumentException("Plaza no válida.");
+
+		if (comprobarCodigoYaExistente(contenedor.getCodigoIdentificador()))
+			throw new IllegalArgumentException("Ya existe un contenedor con ese código de identificación dentro de este muelle.");
 
 		if (plazas[plaza][getMaximoContenedoresApilables() - 1] != null)
 			return false;
@@ -242,6 +248,9 @@ public class Muelle {
 	}
 	
 	private boolean comprobarContenedoresIguales(Muelle muelle) {
+
+		
+
 		if (getPlazas().length != muelle.getPlazas().length) return false;
 		if (getPlazas()[0].length != muelle.getPlazas()[0].length) return false;
 		
@@ -261,6 +270,20 @@ public class Muelle {
 		}
 		
 		return true;
+	}
+
+	public boolean comprobarCodigoYaExistente(String codigoIdentificador) {
+		if (codigoIdentificador == null)
+			throw new IllegalArgumentException("El código de identificación no puede ser null.");
+
+		for (int i = 0; i < getNumeroPlazas(); i++) {
+			for (int j = 0; j < getMaximoContenedoresApilables(); j++) {
+				if (plazas[i][j] != null && plazas[i][j].getCodigoIdentificador().equals(codigoIdentificador))
+					return true;
+			}
+		}
+
+		return false;
 	}
 	
 	@Override
