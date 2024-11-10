@@ -117,15 +117,17 @@ public class MuelleTest {
 	@Test
 	public void testGetContenedoresEnPlaza() {
 		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
-		
+
 		assertEquals(new Contenedor[1], muelle.getContenedoresEnPlaza(0));
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testGetContenedoresEnPlazaNull() {
 		Muelle muelle = new Muelle(10, new GPSCoordinate(0, 0), true, 1, 1);
-		assertNull(muelle.getContenedoresEnPlaza(-1));
+	  muelle.getContenedoresEnPlaza(-1);
 	}
+
+	
 
 	
 
