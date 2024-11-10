@@ -4,13 +4,14 @@ import es.uva.inf.poo.maps.GPSCoordinate;
 
 
 /**
+ * @author daferna & samsanj
+ * 
  * Tipo de dato que representa un muelle de un puerto.
  * 
  * Un muelle tiene un código de identificación, una localización, un estado operativo, un número de plazas, un número máximo de contenedores apilables 
  * y un array de contenedores.
  *
  */
- 
 public class Muelle {
 
 	private int codigoIdentificacion;
@@ -98,7 +99,6 @@ public class Muelle {
 		return maximoContenedoresApilables;
 	}
  
-
 	/**
 	 * Devuelve el código de identificación del muelle.
 	 * 
@@ -276,7 +276,7 @@ public class Muelle {
 	}
 
 	/**
-	 * Devuelve el nivel(altura) de la plaza de un contenedor del muelle apartir de su codigoIdentificador.
+	 * Devuelve el nivel (altura) de la plaza de un contenedor del muelle apartir de su codigoIdentificador.
 	 * 
 	 * @param codigoIdentificador codigo del contenedor a buscar.
 	 * 
@@ -341,7 +341,6 @@ public class Muelle {
 		return plaza >= 0 && plaza <= getNumeroPlazas() - 1;
 	}
 
-
 	/**
 	 * Apila un contenedor en una plaza del muelle si es posible.
 	 * 
@@ -399,7 +398,7 @@ public class Muelle {
 		Contenedor contenedorDesapilado = plazas[plaza][i];
 		plazas[plaza][i] = null;
 
-		return contenedorDesapilado;
+		return new Contenedor(contenedorDesapilado);
 	}
 	
 	/**
@@ -427,7 +426,6 @@ public class Muelle {
 		
 		return true;
 	}
-
 
 	/**
 	 * Comprueba si un código de identificación ya existe en el muelle.

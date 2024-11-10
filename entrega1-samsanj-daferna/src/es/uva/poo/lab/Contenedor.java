@@ -4,6 +4,14 @@ import static java.lang.Math.pow;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author daferna & samsanj
+ *
+ * Tipo de dato que representa un contenedor.
+ * 
+ * El contenedor tiene un código de identificación siguiendo el criterio bic-code, un peso, una carga útil máxima,
+ * un estado, si tiene techo o no y una lista de trayectos.
+ */
 public class Contenedor {
 
 	/**

@@ -2,6 +2,13 @@ package es.uva.poo.lab;
 
 import java.time.LocalDate;
 
+/**
+ * @author daferna & samsanj
+ * 
+ * Tipo de dato que representa el trayecto de un contenedor, teniendo en cuente el
+ * muelle de origen, puerto de origen, fecha de salida, muelle de destino, puerto de destino,
+ * fecha de llegada, coste por día viajado y coste por milla naútica viajada.
+ */
 public class Trayecto {
 	public static final double CONVERSION_MILLAS_NAUTICAS = 0.539957;
 	
